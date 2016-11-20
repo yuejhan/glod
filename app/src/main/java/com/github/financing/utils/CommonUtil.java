@@ -10,10 +10,7 @@ import java.util.Map;
 
 
 public class CommonUtil {
-	/**
-     * dpתpx
-     * 
-     */  
+
     public static int dip2px(Context ctx,float dpValue) {
         final float scale = ctx.getResources().getDisplayMetrics().density;  
         return (int) (dpValue * scale + 0.5f);  
