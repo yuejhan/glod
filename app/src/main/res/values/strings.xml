@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Financing</string>
+
+    <string name="title_index">首页</string>
+    <string name="title_product">产品</string>
+    <string name="title_activity">服务</string>
+    <string name="title_personal">我</string>
+
+    <string name="server_touxiang">设置/修改昵称</string>
+    <string name="server_tools">收益计算器</string>
+    <string name="server_help">帮助中心</string>
+    <string name="server_kefu">客服服务</string>
+    <string name="server_aboutme">关于我们</string>
+
+
+    <string name="me_interest">我的收益</string>
+    <string name="me_investment">我的投资</string>
+    <string name="me_withdraw">提现记录</string>
+    <string name="me_bonus">我的红包</string>
+    <string name="me_setting">设置</string>
+
+
+    <string name="index_warn_text">*预期收益非平台承诺收益,市场有风险,投资需谨慎</string>
+</resources>
