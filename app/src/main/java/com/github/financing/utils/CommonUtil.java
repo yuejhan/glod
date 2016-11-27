@@ -7,10 +7,13 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class CommonUtil {
 
+    private static final String regPhone = "^1\\d{10}$";
     public static int dip2px(Context ctx,float dpValue) {
         final float scale = ctx.getResources().getDisplayMetrics().density;  
         return (int) (dpValue * scale + 0.5f);  
@@ -34,5 +37,16 @@ public class CommonUtil {
             list.add(String.format(input,entry.getKey(),entry.getValue()));
         }
         return String.format(html, apiURl, StringUtils.join(list, "\n"));
+    }
+
+    public static boolean checkPhoneNumber(String phoneNumber){
+        Pattern pattern = Pattern.compile(regPhone);
+        Matcher matcher = pattern.matcher(phoneNumber);
+        return matcher.matches();
+    }
+
+    public static boolean checkPassword(String password){
+        return password != null;
+//        return password != null && (password.length() > 6) ;
     }
 }

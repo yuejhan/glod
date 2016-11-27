@@ -6,6 +6,14 @@
     <string name="title_activity">服务</string>
     <string name="title_personal">我</string>
 
+    <string name="title_login">登录</string>
+    <string name="title_register">注册</string>
+
+    <string name="title_forget">找回登录密码</string>
+    <string name="forget_des">通过您的注册手机号找回密码</string>
+    <string name="button_next">下一步</string>
+    <string name="forget_edit_text">请填写手机号码</string>
+
     <string name="server_touxiang">设置/修改昵称</string>
     <string name="server_tools">收益计算器</string>
     <string name="server_help">帮助中心</string>
@@ -18,6 +26,10 @@
     <string name="me_withdraw">提现记录</string>
     <string name="me_bonus">我的红包</string>
     <string name="me_setting">设置</string>
+
+    <string name="login_username">手机号</string>
+    <string name="login_password">密码</string>
+    <string name="forget_password">忘记密码?</string>
 
 
     <string name="index_warn_text">*预期收益非平台承诺收益,市场有风险,投资需谨慎</string>

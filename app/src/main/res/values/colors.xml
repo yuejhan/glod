@@ -4,22 +4,24 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="bgGrey">#FFDEDEDE</color>
-
-    <color name="textGrey">#FFDEDEDE</color>
-
+    <color name="bgGrey">#FFEBEBEB</color>
+    <color name="bgBlue">#FF43B3FF</color>
     <color name="bgWhile">#FFFFFFFF</color>
 
-    <color name="textBlack">#000000</color>
+    <color name="grey">#FFEBEBEB</color>
+    <color name="blue">#FF43B3FF</color>
+    <color name="whiles">#FFFFFFFF</color>
 
-    <color name="textRed">#FF0000</color>
+    <color name="textGrey">#FF808080</color>
 
-    <color name="textWhile">#FFFFFF</color>
+    <color name="textBlack">#FF000000</color>
 
-    <color name="textBlue">#0000FF</color>
+    <color name="textRed">#FFFF0000</color>
 
-    <color name="white">#ffffff</color>
-    <color name="gray">#cccccc</color>
+    <color name="textWhile">#FFFFFFFF</color>
+
+    <color name="textBlue">#FF43B3FF</color>
+
 
     <color name="drop_down_selected">#7B1FA2</color>
     <color name="drop_down_unselected">#111111</color>
