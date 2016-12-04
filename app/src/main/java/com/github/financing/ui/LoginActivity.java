@@ -49,6 +49,18 @@ public class LoginActivity extends BaseActivity{
         etUserName = (EditText) this.findViewById(R.id.login_username);
         etPassword = (EditText) this.findViewById(R.id.login_password);
 
+        // 注册按钮，监听
+        tvRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        // 返回按钮，监听
         rlBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,6 +68,7 @@ public class LoginActivity extends BaseActivity{
             }
         });
 
+        // 忘记密码 监听
         tvForget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,10 +77,13 @@ public class LoginActivity extends BaseActivity{
                 startActivity(intent);
             }
         });
+
+        // 登录按钮 监听
         tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String userName = etUserName.getText().toString();
+                if("".equals(userName)) Toast.makeText(getApplicationContext(),"手机号不能为空",Toast.LENGTH_LONG).show();
                 if(!CommonUtil.checkPhoneNumber(userName)){
                     Toast.makeText(getApplicationContext(),"手机号码格式错误",Toast.LENGTH_LONG).show();
                     return;
@@ -82,34 +98,35 @@ public class LoginActivity extends BaseActivity{
                 body.put("mobilePhone",userName);
                 body.put("password",password);
 
-                DataRequester.withHttp(getApplicationContext())
-                        .setUrl(Constants.APP_BASE_URL+"/Login")
-                        .setMethod(DataRequester.Method.POST)
-                        .setBody(body)
-                        .setStringResponseListener(new DataRequester.StringResponseListener() {
-                            @Override
-                            public void onResponse(String response) {
-                                Log.e(TAG,response);
-                                ObjectMapper mapper = new ObjectMapper();
-                                try {
-                                    Map map = mapper.readValue(response, Map.class);
-                                    if("0000".equals(map.get("code"))){
-                                        LoginActivity.this.finish();
-                                    }else{
-                                        Toast.makeText(getApplicationContext(),map.get("message").toString(),Toast.LENGTH_LONG).show();
-                                    }
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                DataRequester
+                .withHttp(getApplicationContext())
+                .setUrl(Constants.APP_BASE_URL+"/Login")
+                .setMethod(DataRequester.Method.POST)
+                .setBody(body)
+                .setStringResponseListener(new DataRequester.StringResponseListener() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.e(TAG,response);
+                        ObjectMapper mapper = new ObjectMapper();
+                        try {
+                            Map map = mapper.readValue(response, Map.class);
+                            if("0000".equals(map.get("code"))){
+                                LoginActivity.this.finish();
+                            }else{
+                                Toast.makeText(getApplicationContext(),map.get("message").toString(),Toast.LENGTH_LONG).show();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
-                            }
-                        }).setResponseErrorListener(new DataRequester.ResponseErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.e(TAG,"===================");
-                                Toast.makeText(getApplicationContext(),"服务器异常!",Toast.LENGTH_LONG).show();
-                            }
-                        }).requestString();
+                    }
+                }).setResponseErrorListener(new DataRequester.ResponseErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(TAG,"===================");
+                        Toast.makeText(getApplicationContext(),"服务器异常!",Toast.LENGTH_LONG).show();
+                    }
+                }).requestString();
             }
         });
     }

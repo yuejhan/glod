@@ -8,11 +8,22 @@
 
     <string name="title_login">登录</string>
     <string name="title_register">注册</string>
+    <string name="btn_confirm">确认</string>
 
     <string name="title_forget">找回登录密码</string>
     <string name="forget_des">通过您的注册手机号找回密码</string>
     <string name="button_next">下一步</string>
     <string name="forget_edit_text">请填写手机号码</string>
+    <string name="forget_edit_valid">请填输入验证码</string>
+    <string name="forget_get_valid">获取验证码</string>
+
+    <string name="reset_des">设置新登录密码</string>
+    <string name="reset_passwd">请输入6-16位数字或英文</string>
+    <string name="reset_passwd_again">再次输入新密码</string>
+
+    <string name="register_phone">手机号</string>
+    <string name="register_passwd">新密码</string>
+    <string name="register_valid">验证码</string>
 
     <string name="server_touxiang">设置/修改昵称</string>
     <string name="server_tools">收益计算器</string>

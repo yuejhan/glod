@@ -38,18 +38,62 @@
         android:layout_height="wrap_content"
         android:text="@string/forget_des"
         />
-    <EditText
-        android:id="@+id/forget_phone"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/edit_height"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="20dp"
-        android:padding="10dp"
-        android:textSize="@dimen/text_16"
-        android:background="@color/bgWhile"
-        android:hint="@string/forget_edit_text"
-        />
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/forget_phone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edit_height"
+            android:padding="10dp"
+            android:textSize="@dimen/text_16"
+            android:background="@color/bgWhile"
+            android:inputType="phone"
+            android:hint="@string/forget_edit_text"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bgGrey"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/forget_validCode"
+                android:layout_weight="5"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_height"
+                android:padding="10dp"
+                android:textSize="@dimen/text_16"
+                android:background="@color/bgWhile"
+                android:hint="@string/forget_edit_valid"
+                />
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/bgGrey"
+                />
+            <TextView
+                android:id="@+id/forget_get_valid"
+                android:gravity="center"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:padding="10dp"
+                android:layout_height="match_parent"
+                android:text="@string/forget_get_valid"
+                android:background="@drawable/btn_background"
+                android:textSize="@dimen/text_13"
+                android:textColor="@color/textRed"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/forget_next"
         android:layout_width="match_parent"

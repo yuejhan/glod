@@ -47,6 +47,5 @@ public class CommonUtil {
 
     public static boolean checkPassword(String password){
         return password != null;
-//        return password != null && (password.length() > 6) ;
     }
 }

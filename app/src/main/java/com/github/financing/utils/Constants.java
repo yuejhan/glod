@@ -32,4 +32,9 @@ public class Constants {
     public static final String JZH_API_APP_SIGN_URL = JZH_API_BASE_URL+"/app/appSign_Card.action";
 
     public static final String trustStoreFileName = "server.cer";
+
+
+
+    public static final String MOBILEPHONE = "mobliePhone";
+    public static final String VALIDCODE = "validCode";
 }
