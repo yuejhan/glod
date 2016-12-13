@@ -27,6 +27,8 @@ import javax.net.ssl.SSLSocketFactory;
  */
 public class DefaultApplication extends Application{
 
+    private static final String TAG = "DefaultApplication";
+
     private static DefaultApplication mApplication;
     // 创建http请求队列
     private RequestQueue mDefaultQueue;
