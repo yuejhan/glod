@@ -102,7 +102,7 @@ public class SplashActivity extends BaseActivity{
      * 检查版本号
      */
     private void checkVersion(){
-        DataRequester.withHttp(this).setUrl(Constants.APP_SERVER_CHECKVERSION)
+        DataRequester.withHttp(this).setUrl(Constants.APP_BASE_URL+"/MobileVersion")
                 .setMethod(DataRequester.Method.POST)
                 .setStringResponseListener(new DataRequester.StringResponseListener() {
                     @Override

@@ -8,6 +8,9 @@
     <color name="bgBlue">#FF43B3FF</color>
     <color name="bgWhile">#FFFFFFFF</color>
 
+    <color name="titleBg">#FFFD4D4D</color>
+    <color name="noticeBg">#FFCD3F3E</color>
+
     <color name="grey">#FFEBEBEB</color>
     <color name="blue">#FF43B3FF</color>
     <color name="whiles">#FFFFFFFF</color>

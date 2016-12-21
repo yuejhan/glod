@@ -65,32 +65,32 @@ public class ResetPasswordActivity extends BaseActivity {
 
                 Map<String,String> body = new HashMap<String, String>();
                 body.put("mobilePhone",modifyPhone);
-                body.put("password",passwd);
+                body.put("newPwd",passwd);
                 body.put("validCode",validCode);
                 Log.i(TAG,body.toString());
-//                DataRequester
-//                        .withHttp(getApplicationContext())
-//                        .setUrl(Constants.APP_BASE_URL+"/modifypw")
-//                        .setMethod(DataRequester.Method.POST)
-//                        .setBody(body)
-//                        .setStringResponseListener(new DataRequester.StringResponseListener() {
-//                            @Override
-//                            public void onResponse(String response) {
-//                                Log.e(TAG,response);
-//                                Map map = RequestUtil.parseResponse(response);
-//                                if(map != null && "0000".equals(map.get("code")))
-//                                    ResetPasswordActivity.this.finish();
-//                                else
-//                                    Toast.makeText(ResetPasswordActivity.this,"重置密码失败",Toast.LENGTH_LONG).show();
-//                            }
-//                        })
-//                        .setResponseErrorListener(new DataRequester.ResponseErrorListener() {
-//                            @Override
-//                            public void onErrorResponse(VolleyError error) {
-//                                Log.e(TAG,"===================");
-//                                Toast.makeText(ResetPasswordActivity.this,"服务器异常!",Toast.LENGTH_LONG).show();
-//                            }
-//                        }).requestString();
+                DataRequester
+                        .withHttp(getApplicationContext())
+                        .setUrl(Constants.APP_BASE_URL+"/updatePassword")
+                        .setMethod(DataRequester.Method.POST)
+                        .setBody(body)
+                        .setStringResponseListener(new DataRequester.StringResponseListener() {
+                            @Override
+                            public void onResponse(String response) {
+                                Log.e(TAG,response);
+                                Map map = RequestUtil.parseResponse(response);
+                                if(map != null && "0000".equals(map.get("code")))
+                                    ResetPasswordActivity.this.finish();
+                                else
+                                    Toast.makeText(ResetPasswordActivity.this,"重置密码失败",Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .setResponseErrorListener(new DataRequester.ResponseErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.e(TAG,"===================");
+                                Toast.makeText(ResetPasswordActivity.this,"服务器异常!",Toast.LENGTH_LONG).show();
+                            }
+                        }).requestString();
             }
         });
 
