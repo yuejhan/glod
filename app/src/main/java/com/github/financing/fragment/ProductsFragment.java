@@ -11,14 +11,29 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.github.financing.R;
 import com.github.financing.adapter.DropDownAdapter;
 import com.github.financing.adapter.RecyclerAdapter;
 import com.github.financing.base.BaseFragment;
+import com.github.financing.bean.BidInfoBean;
 import com.github.financing.listener.TabChangeListener;
+import com.github.financing.requester.DataRequester;
+import com.github.financing.requester.RequestUtil;
+import com.github.financing.utils.Constants;
 import com.github.financing.utils.DropEnum;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /********************************************
  * 作者：Administrator
@@ -26,10 +41,14 @@ import java.util.Arrays;
  * 描述：
  *******************************************/
 public class ProductsFragment extends BaseFragment {
+
+    private static final String TAG = "ProductsFragment";
+
     private RecyclerAdapter recyclerAdapter;
     private String headers[] = {"类型", "期限"};
     private String typeArrays[] = {"不限"};
     private String orderArrays[] = {"不限"};
+    private List<BidInfoBean> bidList = new ArrayList<>();
 
 
     private TabChangeListener tabChangeListener;
@@ -45,13 +64,14 @@ public class ProductsFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        initData();
         Log.i("ProductsFragment", "---product:onCreateView开始--");
         if(view == null){
             view = inflater.inflate(R.layout.fragment_prodcuts, null);
             Log.i("ProductsFragment", "--------product:view:fragment_prodcuts-------"+view.hashCode());
             recyclerView = (RecyclerView) view.findViewById(R.id.product_recycler);
             recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-            recyclerAdapter = new RecyclerAdapter(this.getActivity());
+            recyclerAdapter = new RecyclerAdapter(this.getActivity(),bidList);
             recyclerView.setAdapter(recyclerAdapter);
 
             orderView = (TextView)view.findViewById(R.id.tab_order);
@@ -119,4 +139,40 @@ public class ProductsFragment extends BaseFragment {
     }
 
 
+
+    private void initData(){
+        if(bidList.size() > 0) return;
+        Map<String,String> body = new HashMap<String, String>();
+        body.put("pageSize","8");
+        body.put("pageNum","0");
+        DataRequester
+        .withHttp(getActivity())
+        .setUrl(Constants.APP_BASE_URL+"/ProductList")
+        .setMethod(DataRequester.Method.POST)
+        .setBody(body).setJsonArrayResponseListener(new DataRequester.JsonArrayResponseListener() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Log.e(TAG,response.toString());
+                for (int i =0;i<response.length();i++){
+                    BidInfoBean infoBean = new BidInfoBean();
+                    try {
+                        JSONObject o = response.getJSONObject(i);
+                        infoBean.setBidName(o.optString("Name"));
+                        infoBean.setBidType(o.getString("TypeCode"));
+                        infoBean.setBidYearRate(o.optString("YearRate")+"%");
+                        infoBean.setBidLoanTerm(o.optString("LoanTerm")+"个月");
+                        infoBean.setBidMinimum(o.optString("Minimum"));
+                        infoBean.setBidRepayment(o.optString("RepaymentMethod"));
+                        bidList.add(infoBean);
+                    } catch (JSONException e) {
+                    }
+                }
+            }
+        }).setResponseErrorListener(new DataRequester.ResponseErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }).requestJsonArray();
+    }
 }

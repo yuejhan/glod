@@ -7,14 +7,19 @@ import android.view.ViewGroup;
 
 import com.github.financing.R;
 import com.github.financing.adapter.holder.BidInfoHolder;
+import com.github.financing.bean.BidInfoBean;
+
+import java.util.List;
 
 /**
  * Created by user on 2016/10/11.
  */
 public class RecyclerAdapter extends RecyclerView.Adapter<BidInfoHolder> {
     private Activity activity;
-    public RecyclerAdapter(Activity activity) {
+    private List<BidInfoBean> bidList;
+    public RecyclerAdapter(Activity activity,List<BidInfoBean> bidList) {
         this.activity = activity;
+        this.bidList = bidList;
     }
 
     @Override
@@ -25,11 +30,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<BidInfoHolder> {
 
     @Override
     public void onBindViewHolder(BidInfoHolder holder, int position) {
-        holder.tv.setText("冠军稳赢");
+        BidInfoBean bidInfoBean = bidList.get(position);
+        holder.tvBidName.setText(bidInfoBean.getBidName());
+        holder.tvBidType.setText(bidInfoBean.getBidType());
+        holder.tvYearRate.setText(bidInfoBean.getBidYearRate());
+        holder.tvLoanTerm.setText(bidInfoBean.getBidLoanTerm());
+        holder.tvMinimum.setText(bidInfoBean.getBidMinimum());
+        holder.tvRepayment.setText(bidInfoBean.getBidRepayment());
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return bidList.size();
     }
 }

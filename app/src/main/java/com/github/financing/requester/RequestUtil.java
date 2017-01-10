@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.financing.utils.Constants;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /********************************************
@@ -20,7 +21,7 @@ public class RequestUtil {
     public static ObjectMapper mapper = new ObjectMapper();
     public static Map parseResponse(String response){
         try{
-            return mapper.readValue(response, Map.class);
+            return mapper.readValue(response, HashMap.class);
         }catch (Exception e){
             return null;
         }

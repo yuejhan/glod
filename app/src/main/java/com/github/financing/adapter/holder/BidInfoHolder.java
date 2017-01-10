@@ -12,10 +12,15 @@ import com.github.financing.R;
  * 描述：
  *******************************************/
 public class BidInfoHolder extends RecyclerView.ViewHolder{
-    public TextView tv;
+    public TextView tvBidName,tvBidType,tvYearRate,tvLoanTerm,tvMinimum,tvRepayment;
 
     public BidInfoHolder(View itemView) {
         super(itemView);
-        tv = (TextView)itemView.findViewById(R.id.bid_title);
+        tvBidName = (TextView) itemView.findViewById(R.id.bid_name);
+        tvBidType = (TextView) itemView.findViewById(R.id.bid_typeCode);
+        tvYearRate = (TextView) itemView.findViewById(R.id.bid_yearRate);
+        tvLoanTerm = (TextView) itemView.findViewById(R.id.bid_loanTerm);
+        tvMinimum = (TextView) itemView.findViewById(R.id.bid_minimum);
+        tvRepayment = (TextView) itemView.findViewById(R.id.bid_repayment);
     }
 }
