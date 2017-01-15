@@ -3,14 +3,23 @@ package com.github.financing.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.financing.R;
 import com.github.financing.base.BaseFragment;
 import com.github.financing.ui.LoginActivity;
+import com.github.financing.ui.MainActivity;
+import com.github.financing.ui.SettingActivity;
+import com.github.financing.utils.CommonUtil;
+import com.github.financing.utils.FileUtil;
+
+import java.io.File;
 
 /********************************************
  * 作者：Administrator
@@ -19,29 +28,60 @@ import com.github.financing.ui.LoginActivity;
  *******************************************/
 public class PersonalFragment extends BaseFragment {
     private View view;
-    private TextView tvLogin;
+    private TextView tvLogin,tvSetting;
+    private LinearLayout llOK;
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.e("person","===================oncreateView===================");
         if(view == null){
             view = inflater.inflate(R.layout.fragment_personal, null);
-        }
-
-        tvLogin = (TextView)view.findViewById(R.id.me_login);
-
-        tvLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(getActivity(), LoginActivity.class);
-                startActivity(intent);
+        }else{
+            ViewGroup parent = (ViewGroup)view.getParent();
+            if(parent != null){
+                parent.removeView(view);
             }
-        });
-        ViewGroup parent = (ViewGroup)view.getParent();
-        if(parent != null){
-            parent.removeView(view);
         }
+        llOK = (LinearLayout) view.findViewById(R.id.me_ok);
+        tvLogin = (TextView)view.findViewById(R.id.me_login);
+        String userPhone = FileUtil.getStringValue("userPhone");
+        if(userPhone != null && !"".equals(userPhone)){
+            llOK.setVisibility(View.VISIBLE);
+            tvLogin.setVisibility(View.GONE);
+            tvSetting = (TextView) view.findViewById(R.id.me_setting);
+            tvSetting.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String userCheck = FileUtil.getStringValue("userPhone");
+                    if(userCheck != null && !"".equals(userCheck)){
+                        Intent intent = new Intent();
+                        Log.e("mainactivity",getActivity().toString());
+                        intent.setClass(getActivity(), SettingActivity.class);
+                        startActivityForResult(intent,4002);
+                    }
+                }
+            });
+        }else{
+            tvLogin.setVisibility(View.VISIBLE);
+            llOK.setVisibility(View.GONE);
+            tvLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.setClass(getActivity(), LoginActivity.class);
+                    startActivityForResult(intent,4001);
+                }
+            });
+        }
+
         return view;
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e("person","------------------"+requestCode+"------------------------");
+        ((MainActivity)getActivity()).refresh();
     }
 }

@@ -26,8 +26,10 @@
             android:orientation="vertical">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="180dp"
                 android:background="@color/bgWhile"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 >
                 <TextView
                     android:id="@+id/me_login"
@@ -36,6 +38,58 @@
                     android:layout_centerInParent="true"
                     android:background="@drawable/menologin"
                     />
+                <LinearLayout
+                    android:id="@+id/me_ok"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/textBlack"
+                        android:layout_marginTop="30dp"
+                        android:text="总资产(元)"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/textBlack"
+                        android:layout_marginTop="10dp"
+                        android:textSize="@dimen/text_40"
+                        android:text="0.00"
+                        />
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/line"
+                            android:textColor="@color/textBlue"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text="充 值"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/line_blue"
+                            android:layout_marginLeft="18dp"
+                            android:textColor="@color/textBlack"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text="提 现"/>
+                    </LinearLayout>
+
+                </LinearLayout>
             </RelativeLayout>
             <TextView
                 android:id="@+id/me_interest"

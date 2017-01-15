@@ -17,6 +17,7 @@ import com.github.financing.base.BaseActivity;
 import com.github.financing.requester.DataRequester;
 import com.github.financing.utils.CommonUtil;
 import com.github.financing.utils.Constants;
+import com.github.financing.utils.FileUtil;
 
 import org.json.JSONObject;
 
@@ -82,7 +83,7 @@ public class LoginActivity extends BaseActivity{
         tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userName = etUserName.getText().toString();
+                final String userName = etUserName.getText().toString();
                 if("".equals(userName)) Toast.makeText(getApplicationContext(),"手机号不能为空",Toast.LENGTH_LONG).show();
                 if(!CommonUtil.checkPhoneNumber(userName)){
                     Toast.makeText(getApplicationContext(),"手机号码格式错误",Toast.LENGTH_LONG).show();
@@ -110,7 +111,13 @@ public class LoginActivity extends BaseActivity{
                         ObjectMapper mapper = new ObjectMapper();
                         try {
                             Map map = mapper.readValue(response, Map.class);
+                            if(map.get("token") == null || "".equals(map.get("token"))){
+                                Toast.makeText(getApplicationContext(),"服务器异常",Toast.LENGTH_LONG).show();
+                                return;
+                            }
                             if("0000".equals(map.get("code"))){
+                                FileUtil.putValue("token",map.get("token").toString());
+                                FileUtil.putValue("userPhone",userName);
                                 LoginActivity.this.finish();
                             }else{
                                 Toast.makeText(getApplicationContext(),map.get("message").toString(),Toast.LENGTH_LONG).show();

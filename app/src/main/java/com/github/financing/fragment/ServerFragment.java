@@ -23,11 +23,13 @@ public class ServerFragment extends BaseFragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if(view == null){
             view = inflater.inflate(R.layout.fragment_activity, null);
+        }else{
+            ViewGroup parent = (ViewGroup)view.getParent();
+            if(parent != null){
+                parent.removeView(view);
+            }
         }
-        ViewGroup parent = (ViewGroup)view.getParent();
-        if(parent != null){
-            parent.removeView(view);
-        }
+
         return view;
     }
 

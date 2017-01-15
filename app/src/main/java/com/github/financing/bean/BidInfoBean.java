@@ -1,11 +1,13 @@
 package com.github.financing.bean;
 
+import java.io.Serializable;
+
 /********************************************
  * 作者：Administrator
  * 时间：2017/1/10
  * 描述：
  *******************************************/
-public class BidInfoBean {
+public class BidInfoBean implements Serializable{
     /**
      * 标的名称
      */

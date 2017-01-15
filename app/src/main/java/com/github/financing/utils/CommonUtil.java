@@ -14,11 +14,17 @@ import java.util.regex.Pattern;
 public class CommonUtil {
 
     private static final String regPhone = "^1\\d{10}$";
+    private static final String number = "^((([1-9]{1}//d{0,9}))|([0]{1}))((//.(//d){2}))?$";
     public static int dip2px(Context ctx,float dpValue) {
         final float scale = ctx.getResources().getDisplayMetrics().density;  
         return (int) (dpValue * scale + 0.5f);  
     } 
- 
+
+    public static boolean checkNumber(String value){
+        Pattern pattern = Pattern.compile(number);
+        Matcher matcher = pattern.matcher(value);
+        return matcher.matches();
+    }
   
     /** 
      *	pxתdp
@@ -29,6 +35,7 @@ public class CommonUtil {
     }
 
 
+    // 富有表单提交
     public static String makePostHTML(String apiURl,Map<String,String> formData){
         String html = "<!DOCTYPE HTML><html><body><form id='sbform' action='%s' method='post'>%s</form><script type='text/javascript'>document.getElementById('sbform').submit();</script></body></html>";
         List<String> list = new ArrayList<>(formData.size());
@@ -39,13 +46,18 @@ public class CommonUtil {
         return String.format(html, apiURl, StringUtils.join(list, "\n"));
     }
 
+    // 手机号校验
     public static boolean checkPhoneNumber(String phoneNumber){
         Pattern pattern = Pattern.compile(regPhone);
         Matcher matcher = pattern.matcher(phoneNumber);
         return matcher.matches();
     }
 
+    // 密码校验
     public static boolean checkPassword(String password){
         return password != null;
     }
+
+    //
+
 }

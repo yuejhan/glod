@@ -26,6 +26,8 @@
         <activity android:name=".ui.ForgetActivity"/>
         <activity android:name=".ui.ResetPasswordActivity"/>
         <activity android:name=".ui.RegisterActivity"/>
+        <activity android:name=".ui.DetailActivity"/>
+        <activity android:name=".ui.SettingActivity"/>
 
     </application>
     <!-- <activity android:name=".ui.WebViewActivity"/>-->

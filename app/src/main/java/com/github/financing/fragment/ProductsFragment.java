@@ -1,5 +1,6 @@
 package com.github.financing.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,9 +20,11 @@ import com.github.financing.adapter.DropDownAdapter;
 import com.github.financing.adapter.RecyclerAdapter;
 import com.github.financing.base.BaseFragment;
 import com.github.financing.bean.BidInfoBean;
+import com.github.financing.listener.OnItemClickListener;
 import com.github.financing.listener.TabChangeListener;
 import com.github.financing.requester.DataRequester;
 import com.github.financing.requester.RequestUtil;
+import com.github.financing.ui.DetailActivity;
 import com.github.financing.utils.Constants;
 import com.github.financing.utils.DropEnum;
 
@@ -61,9 +64,11 @@ public class ProductsFragment extends BaseFragment {
     private TextView orderView;
     private TextView typeView;
     private View containt;
+
+    private static boolean running = false;
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         initData();
         Log.i("ProductsFragment", "---product:onCreateView开始--");
         if(view == null){
@@ -73,6 +78,19 @@ public class ProductsFragment extends BaseFragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
             recyclerAdapter = new RecyclerAdapter(this.getActivity(),bidList);
             recyclerView.setAdapter(recyclerAdapter);
+            recyclerAdapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void OnItemClick(View view) {
+                    BidInfoBean bidInfoBean = (BidInfoBean) view.getTag();
+                    Intent intent = new Intent();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("bidDetail",bidInfoBean);
+                    intent.putExtras(bundle);
+                    intent.setClass(getActivity(), DetailActivity.class);
+                    startActivity(intent);
+                }
+            });
+
 
             orderView = (TextView)view.findViewById(R.id.tab_order);
             orderView.setTag("order");
@@ -104,11 +122,11 @@ public class ProductsFragment extends BaseFragment {
             tabChangeListener = new TabChangeListener(this,containt);
             orderView.setOnClickListener(tabChangeListener);
             typeView.setOnClickListener(tabChangeListener);
-        }
-
-        ViewGroup parent = (ViewGroup)view.getParent();
-        if(parent != null){
-            parent.removeView(view);
+        }else{
+            ViewGroup parent = (ViewGroup)view.getParent();
+            if(parent != null){
+                parent.removeView(view);
+            }
         }
         Log.i("ProductsFragment", "--product:onCreateView结束--");
         return view;
@@ -142,6 +160,8 @@ public class ProductsFragment extends BaseFragment {
 
     private void initData(){
         if(bidList.size() > 0) return;
+        if(running) return;
+        running = true;
         Map<String,String> body = new HashMap<String, String>();
         body.put("pageSize","8");
         body.put("pageNum","0");
@@ -159,19 +179,23 @@ public class ProductsFragment extends BaseFragment {
                         JSONObject o = response.getJSONObject(i);
                         infoBean.setBidName(o.optString("Name"));
                         infoBean.setBidType(o.getString("TypeCode"));
-                        infoBean.setBidYearRate(o.optString("YearRate")+"%");
-                        infoBean.setBidLoanTerm(o.optString("LoanTerm")+"个月");
+                        infoBean.setBidYearRate(o.optString("YearRate"));
+                        infoBean.setBidLoanTerm(o.optString("LoanTerm"));
                         infoBean.setBidMinimum(o.optString("Minimum"));
                         infoBean.setBidRepayment(o.optString("RepaymentMethod"));
                         bidList.add(infoBean);
                     } catch (JSONException e) {
                     }
                 }
+                running = false;
+                if(recyclerAdapter != null){
+                    recyclerAdapter.notifyDataSetChanged();
+                }
             }
         }).setResponseErrorListener(new DataRequester.ResponseErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                running = false;
             }
         }).requestJsonArray();
     }

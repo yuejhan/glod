@@ -1,10 +1,13 @@
 package com.github.financing.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -74,7 +77,13 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
 
     @Override
     public void onTabChanged(String tabId) {
-        Log.i(TAG_1,"============"+tabId);
+        Log.e(TAG_1,"============"+tabId);
+    }
 
+    public void refresh(){
+
+        Fragment fragmentByTag = getSupportFragmentManager().findFragmentByTag(mTabHost.getCurrentTabTag());
+        getSupportFragmentManager().beginTransaction().detach(fragmentByTag).commit();
+        getSupportFragmentManager().beginTransaction().attach(fragmentByTag).commit();
     }
 }

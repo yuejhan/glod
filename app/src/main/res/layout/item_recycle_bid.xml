@@ -114,20 +114,6 @@
                 android:layout_marginTop="10dp"
                 android:drawableLeft="@drawable/huankuanfangshi"
                 android:text="一次性还本付息"/>
-
         </LinearLayout>
     </LinearLayout>
-
-    <TextView
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="25dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="立即出借"
-        android:textSize="@dimen/text_14"
-        android:textColor="@color/textWhile"
-        android:background="@drawable/btn_bid_d"
-        />
 </LinearLayout>

@@ -71,6 +71,11 @@ public class IndexFragment extends BaseFragment{
             recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 //            recyclerAdapter = new RecyclerAdapter(this.getActivity());
 //            recyclerView.setAdapter(recyclerAdapter);
+        }else{
+            ViewGroup parent = (ViewGroup)view.getParent();
+            if(parent != null){
+                parent.removeView(view);
+            }
         }
 
 //        if(noticThread == null){
@@ -88,10 +93,6 @@ public class IndexFragment extends BaseFragment{
 //            Log.i("indexFargment", "-------noticThread-----" + noticThread.getClass().getName() + "----------" + noticThread.hashCode());
 //        }
 
-        ViewGroup parent = (ViewGroup)view.getParent();
-        if(parent != null){
-            parent.removeView(view);
-        }
 //        Log.i("indexFargment","-------thread-------"+noticThread.getClass().getName()+"-----"+noticThread.hashCode());
 //        Log.i("indexFargment","-------view------"+view.getClass().getName()+"----------"+view.hashCode());
 //        Log.i("indexFargment","-------handler------"+handler.getClass().getName()+"----------"+handler.hashCode());

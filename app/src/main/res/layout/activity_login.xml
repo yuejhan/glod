@@ -7,8 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
-        android:background="@color/bgWhile"
-        >
+        android:background="@color/bgWhile">
         <RelativeLayout
             android:id="@+id/login_back"
             android:layout_width="wrap_content"
@@ -46,6 +45,7 @@
             android:layout_height="@dimen/edit_height"
             android:hint="@string/login_username"
             android:background="@color/bgWhile"
+            android:inputType="phone"
             android:textSize="@dimen/text_16"
             />
         <TextView
@@ -58,6 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/edit_height"
             android:background="@color/bgWhile"
+            android:inputType="textPassword"
             android:hint="@string/login_password"
             android:textSize="@dimen/text_16"
             />
