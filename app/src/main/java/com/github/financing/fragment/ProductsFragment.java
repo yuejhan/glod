@@ -118,7 +118,6 @@ public class ProductsFragment extends BaseFragment {
                 }
             });
 
-
             tabChangeListener = new TabChangeListener(this,containt);
             orderView.setOnClickListener(tabChangeListener);
             typeView.setOnClickListener(tabChangeListener);

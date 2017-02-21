@@ -37,4 +37,8 @@ public class Constants {
 
     public static final String MOBILEPHONE = "mobliePhone";
     public static final String VALIDCODE = "validCode";
+
+
+//    public static final String HTTP = "http://192.168.1.22:8080/api/getDate";
+//    public static final String HTTPS = "http://www-1.fuiou.com:9057/jzh/app/500002.action";
 }

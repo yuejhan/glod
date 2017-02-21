@@ -80,7 +80,6 @@
                 android:horizontalSpacing="3dp"
                 android:verticalSpacing="2dp"
                 android:numColumns="4"/>
-
         </FrameLayout>
     </FrameLayout>
 
