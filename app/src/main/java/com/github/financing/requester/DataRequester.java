@@ -3,6 +3,7 @@ package com.github.financing.requester;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.util.LruCache;
 import android.widget.ImageView;
 
 import com.android.volley.AuthFailureError;
@@ -263,102 +264,5 @@ public class DataRequester {
                 mResponseErrorListener );
 
         mRequestQueue.add( request );
-    }
-
-    /** 图片显示的控件 */
-    private ImageView mImageView ;
-    /** 下载图片的缓存 */
-    private ImageLoader.ImageCache mCache = null ;
-    /** 下载过程过程中显示的图片 */
-    private int mDefaultImage ;
-    /** 下载失败后显示的图片 */
-    private int mFailImage ;
-    /** 图片的宽度 */
-    private int maxWidth = 0 ;
-    /** 图片的高度 */
-    private int maxHeight = 0;
-
-    /**
-     * 设置图片显示的控件
-     * @param iv
-     * @return
-     */
-    public DataRequester setImageView(ImageView iv){
-        this.mImageView = iv ;
-        return this ;
-    }
-
-    /**
-     * 设置下载图片过程中显示的图片
-     * @param defaultImage
-     * @return
-     */
-    public DataRequester setDafaultImage(int defaultImage){
-        this.mDefaultImage = defaultImage ;
-        return this ;
-    }
-
-    /**
-     * 设置下载失败时显示的图片
-     * @param failImage
-     * @return
-     */
-    public DataRequester setFailImage(int failImage){
-        this.mFailImage = failImage ;
-        return this ;
-    }
-
-    /**
-     * 设置图片的缓存
-     * @param cache
-     * @return
-     */
-    public DataRequester setImageCache(ImageLoader.ImageCache cache){
-        this.mCache = cache ;
-        return this ;
-    }
-
-    /**
-     * 设置下载图片的最大宽度，默认为0，可以不设置
-     * @param width
-     * @return
-     */
-    public DataRequester setImageWidth(int width){
-        this.maxWidth = width ;
-        return this ;
-    }
-
-    /**
-     * 设置下载图片的最大高度，默认为0，可以不设置
-     * @param height
-     * @return
-     */
-    public DataRequester setImageHeight(int height){
-        this.maxHeight = height;
-        return this ;
-    }
-
-
-    /**
-     * 请求图片
-     */
-    public void requestImage(){
-        if(mCache == null){
-            mCache = new ImageLoader.ImageCache() {
-                @Override
-                public Bitmap getBitmap(String url) {
-                    return null;
-                }
-
-                @Override
-                public void putBitmap(String url, Bitmap bitmap) {
-
-                }
-            } ;
-        }
-        ImageLoader imageLoader = new ImageLoader(mRequestQueue, mCache);
-        ImageLoader.ImageListener listener = ImageLoader.getImageListener(mImageView,mDefaultImage, mFailImage);
-
-        imageLoader.get(url,listener, 200, 200);
     }
 }

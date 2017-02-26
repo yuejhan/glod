@@ -33,4 +33,16 @@
         <attr name="ddmenuSelectedIcon" format="reference"/>
         <attr name="ddmenuUnselectedIcon" format="reference"/>
     </declare-styleable>
+
+
+    <declare-styleable name="SmileyLoadingView">
+        <!-- animation duration -->
+        <attr name="duration" format="integer"/>
+        <!-- stroke width -->
+        <attr name="strokeWidth" format="dimension"/>
+        <!-- stroke color -->
+        <attr name="strokeColor" format="color"/>
+        <!-- animation repeat count -->
+        <attr name="animRepeatCount" format="integer"/>
+    </declare-styleable>
 </resources>

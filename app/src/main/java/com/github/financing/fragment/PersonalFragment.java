@@ -81,30 +81,32 @@ public class PersonalFragment extends BaseFragment {
                 public void onClick(View view) {
                     //TODO:充值请求逻辑
                     Map<String,String> body = new HashMap<String, String>();
-                    DataRequester
-                            .withHttp(getActivity())
-                            .setUrl(Constants.APP_BASE_URL+"/")
-                            .setMethod(DataRequester.Method.POST)
-                            .setBody(body)
-                            .setStringResponseListener(new DataRequester.StringResponseListener() {
-                                @Override
-                                public void onResponse(String response) {
-                                    ObjectMapper objectMapper = new ObjectMapper();
-                                    Map map = new HashMap();
-                                    try {
-                                        map = objectMapper.readValue(response.getBytes(), Map.class);
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                    goteWebView(Constants.JZH_API_APP_500002_URL,map);
-                                }
-                            })
-                            .setResponseErrorListener(new DataRequester.ResponseErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-
-                                }
-                            }).requestString();
+//                    body.put("");
+                    goteWebView(Constants.JZH_API_APP_500002_URL,body);
+//                    DataRequester
+//                            .withHttp(getActivity())
+//                            .setUrl(Constants.APP_BASE_URL+"/")
+//                            .setMethod(DataRequester.Method.POST)
+//                            .setBody(body)
+//                            .setStringResponseListener(new DataRequester.StringResponseListener() {
+//                                @Override
+//                                public void onResponse(String response) {
+//                                    ObjectMapper objectMapper = new ObjectMapper();
+//                                    Map map = new HashMap();
+//                                    try {
+//                                        map = objectMapper.readValue(response.getBytes(), Map.class);
+//                                    } catch (IOException e) {
+//                                        e.printStackTrace();
+//                                    }
+//                                    goteWebView(Constants.JZH_API_APP_500002_URL,map);
+//                                }
+//                            })
+//                            .setResponseErrorListener(new DataRequester.ResponseErrorListener() {
+//                                @Override
+//                                public void onErrorResponse(VolleyError error) {
+//
+//                                }
+//                            }).requestString();
                 }
             });
             // 提现按钮

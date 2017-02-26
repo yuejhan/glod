@@ -1,31 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.github.financing.views.loadingView.SamplePtrFrameLayout
+    android:id="@+id/ptr_frame_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/bgGrey">
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    >
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgGrey"
+    android:orientation="vertical" >
+    <!-- 轮播图-->
+    <com.github.financing.views.loopPage.RollPagerView
+        android:id="@+id/new_roll_pager"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        />
+    <!--公告-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
-        <!-- 轮播图-->
-        <com.github.financing.views.loopPage.RollPagerView
-            android:id="@+id/roll_pager"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginBottom="1dp"
-            />
+        android:background="@color/noticeBg"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/gonggao"/>
         <!-- 公告-->
         <com.github.financing.views.scrollText.AutoVerticalScrollTextView
-            android:id="@+id/autoscroll_text"
+            android:id="@+id/new_autoscroll_text"
             android:layout_width="match_parent"
             android:layout_height="@dimen/notice_height"
-            />
+            >
+        </com.github.financing.views.scrollText.AutoVerticalScrollTextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/index_list"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@color/bgWhile"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout android:gravity="center"
+                android:orientation="vertical"
+                android:background="@color/bgWhile"
+                android:layout_width="0.0dip"
+                android:layout_height="50dp"
+                android:layout_weight="1.0">
+                <TextView
+                    android:textSize="14sp"
+                    android:textColor="#ffff3e19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:text="0" />
+                <TextView
+                    android:textSize="14sp"
+                    android:textColor="#ff999999"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="累计交易总额（元）" />
+            </LinearLayout>
+            <View
+                android:background="#ffe5e5e5"
+                android:layout_width="1dp"
+                android:layout_height="35dp" />
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@color/bgWhile"
+                android:layout_width="0.0dip"
+                android:layout_height="50dp"
+                android:layout_weight="1.0">
+                <TextView
+                    android:textSize="14sp"
+                    android:textColor="#ffff3e19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:text="0" />
+                <TextView
+                    android:textSize="14sp"
+                    android:textColor="#ff999999"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="累计赚取利息（元）" />
+            </LinearLayout>
+        </LinearLayout>
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/index_recycler"
+            android:id="@+id/new_index_recycler"
             android:scrollbars="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             />
-
     </LinearLayout>
-</ScrollView>
+    <include
+        android:id="@+id/index_comment_error"
+        layout="@layout/comment_error"/>
+</LinearLayout>
+</com.github.financing.views.loadingView.SamplePtrFrameLayout>
