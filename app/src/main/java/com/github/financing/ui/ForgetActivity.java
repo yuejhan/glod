@@ -35,6 +35,8 @@ public class ForgetActivity extends BaseActivity {
     private EditText etPhone,etValidCode;
     private static final String TAG="ForgetActivity";
    private TimeCount time = new TimeCount(60000,1000);
+    public static final String MOBILEPHONE = "mobliePhone";
+    public static final String VALIDCODE = "validCode";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,8 +106,8 @@ public class ForgetActivity extends BaseActivity {
 //                    return;
 //                }
                 Intent intent = new Intent();
-                intent.putExtra(Constants.MOBILEPHONE,phone);
-                intent.putExtra(Constants.VALIDCODE,validCode);
+                intent.putExtra(MOBILEPHONE,phone);
+                intent.putExtra(VALIDCODE,validCode);
                 intent.setClass(ForgetActivity.this,ResetPasswordActivity.class);
                 startActivity(intent);
             }

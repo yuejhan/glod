@@ -81,8 +81,13 @@ public class PersonalFragment extends BaseFragment {
                 public void onClick(View view) {
                     //TODO:充值请求逻辑
                     Map<String,String> body = new HashMap<String, String>();
-//                    body.put("");
-                    goteWebView(Constants.JZH_API_APP_500002_URL,body);
+                    body.put("mchnt_cd","0001000F0096241");
+                    body.put("mchnt_txn_ssn","11032302065863805666");
+                    body.put("cust_no","17300010020");
+                    body.put("location","0020");
+                    body.put("amt","1000");
+                    body.put("signature","");
+                    goteWebView(Constants.FUYOU_BASE_URL,body);
 //                    DataRequester
 //                            .withHttp(getActivity())
 //                            .setUrl(Constants.APP_BASE_URL+"/")
@@ -129,7 +134,7 @@ public class PersonalFragment extends BaseFragment {
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
-                                    goteWebView(Constants.JZH_API_APP_500003_URL,map);
+                                    goteWebView(Constants.FUYOU_BASE_URL,map);
                                 }
                             })
                             .setResponseErrorListener(new DataRequester.ResponseErrorListener() {
