@@ -18,6 +18,7 @@ import com.github.financing.R;
 import com.github.financing.base.BaseActivity;
 import com.github.financing.requester.DataRequester;
 import com.github.financing.requester.RequestUtil;
+import com.github.financing.utils.BusiConstant;
 import com.github.financing.utils.CommonUtil;
 import com.github.financing.utils.Constants;
 
@@ -34,9 +35,7 @@ public class ForgetActivity extends BaseActivity {
     private RelativeLayout rlBack;
     private EditText etPhone,etValidCode;
     private static final String TAG="ForgetActivity";
-   private TimeCount time = new TimeCount(60000,1000);
-    public static final String MOBILEPHONE = "mobliePhone";
-    public static final String VALIDCODE = "validCode";
+    private TimeCount time = new TimeCount(60000,1000);
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +69,7 @@ public class ForgetActivity extends BaseActivity {
                 body.put("mobilephone",phoneNumber);
                 DataRequester
                         .withHttp(getApplicationContext())
-                        .setUrl(Constants.APP_BASE_URL+"/MsgAuthCode")
+                        .setUrl(Constants.APP_BASE_URL+"/Common/MsgAuthCode")
                         .setMethod(DataRequester.Method.POST)
                         .setBody(body)
                         .setStringResponseListener(new DataRequester.StringResponseListener() {
@@ -106,8 +105,8 @@ public class ForgetActivity extends BaseActivity {
 //                    return;
 //                }
                 Intent intent = new Intent();
-                intent.putExtra(MOBILEPHONE,phone);
-                intent.putExtra(VALIDCODE,validCode);
+                intent.putExtra(BusiConstant.MOBILEPHONE,phone);
+                intent.putExtra(BusiConstant.VALIDCODE,validCode);
                 intent.setClass(ForgetActivity.this,ResetPasswordActivity.class);
                 startActivity(intent);
             }

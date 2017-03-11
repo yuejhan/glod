@@ -15,6 +15,7 @@ import com.github.financing.R;
 import com.github.financing.base.BaseActivity;
 import com.github.financing.requester.DataRequester;
 import com.github.financing.requester.RequestUtil;
+import com.github.financing.utils.BusiConstant;
 import com.github.financing.utils.CommonUtil;
 import com.github.financing.utils.Constants;
 
@@ -38,8 +39,8 @@ public class ResetPasswordActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_reset);
         Intent intent = getIntent();
-        modifyPhone = intent.getStringExtra(Constants.MOBILEPHONE);
-        validCode = intent.getStringExtra(Constants.VALIDCODE);
+        modifyPhone = intent.getStringExtra(BusiConstant.MOBILEPHONE);
+        validCode = intent.getStringExtra(BusiConstant.VALIDCODE);
         Log.i(TAG,"===modifyPhone==="+modifyPhone + "===validCode===="+validCode);
         initView();
     }

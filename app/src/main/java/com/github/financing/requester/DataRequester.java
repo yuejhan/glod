@@ -80,9 +80,9 @@ public class DataRequester {
         if(type == Type.HTTPS_DEFALT){
             mRequestQueue = DefaultApplication.getInstance().getDefaultSslQueue() ;
         }
-        if(type == Type.HTTPS_SELF_CERTIFIED){
-            mRequestQueue = DefaultApplication.getInstance().getSelfSslQueue() ;
-        }
+//        if(type == Type.HTTPS_SELF_CERTIFIED){
+//            mRequestQueue = DefaultApplication.getInstance().getSelfSslQueue() ;
+//        }
     }
 
     /**

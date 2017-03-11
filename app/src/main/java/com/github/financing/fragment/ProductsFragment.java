@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ import com.github.financing.requester.RequestUtil;
 import com.github.financing.ui.DetailActivity;
 import com.github.financing.utils.Constants;
 import com.github.financing.utils.DropEnum;
+import com.github.financing.views.loadingView.SamplePtrFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,6 +40,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
+import in.srain.cube.views.ptr.PtrHandler;
+
 /********************************************
  * 作者：Administrator
  * 时间：2016/10/9
@@ -48,6 +54,7 @@ public class ProductsFragment extends BaseFragment {
     private static final String TAG = "ProductsFragment";
 
     private RecyclerAdapter recyclerAdapter;
+    private SamplePtrFrameLayout prtFrameLayout;
     private String headers[] = {"类型", "期限"};
     private String typeArrays[] = {"不限"};
     private String orderArrays[] = {"不限"};
@@ -64,33 +71,24 @@ public class ProductsFragment extends BaseFragment {
     private TextView orderView;
     private TextView typeView;
     private View containt;
+    private FrameLayout pullView,maskView;
 
     private static boolean running = false;
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        initData();
+//        initData();
         Log.i("ProductsFragment", "---product:onCreateView开始--");
         if(view == null){
             view = inflater.inflate(R.layout.fragment_prodcuts, null);
+            prtFrameLayout = (SamplePtrFrameLayout) view.findViewById(R.id.product_frame_layout);
             Log.i("ProductsFragment", "--------product:view:fragment_prodcuts-------"+view.hashCode());
+            pullView = (FrameLayout) view.findViewById(R.id.product_pull_view);
             recyclerView = (RecyclerView) view.findViewById(R.id.product_recycler);
             recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
             recyclerAdapter = new RecyclerAdapter(this.getActivity(),bidList);
             recyclerView.setAdapter(recyclerAdapter);
-            recyclerAdapter.setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void OnItemClick(View view) {
-                    BidInfoBean bidInfoBean = (BidInfoBean) view.getTag();
-                    Intent intent = new Intent();
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("bidDetail",bidInfoBean);
-                    intent.putExtras(bundle);
-                    intent.setClass(getActivity(), DetailActivity.class);
-                    startActivity(intent);
-                }
-            });
-
+            initItemClick();
 
             orderView = (TextView)view.findViewById(R.id.tab_order);
             orderView.setTag("order");
@@ -102,7 +100,14 @@ public class ProductsFragment extends BaseFragment {
 
             containt =  view.findViewById(R.id.containt_frame);
             gridView = (GridView)view.findViewById(R.id.grid_contain);
-
+            maskView = (FrameLayout) view.findViewById(R.id.mask_containt);
+            maskView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    maskView.setVisibility(View.GONE);
+                    containt.setVisibility(View.GONE);
+                }
+            });
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -114,6 +119,7 @@ public class ProductsFragment extends BaseFragment {
                     }else {
                         typeView.setText(typeArrays[position]);
                     }
+                    maskView.setVisibility(View.GONE);
                     containt.setVisibility(View.GONE);
                 }
             });
@@ -121,6 +127,22 @@ public class ProductsFragment extends BaseFragment {
             tabChangeListener = new TabChangeListener(this,containt);
             orderView.setOnClickListener(tabChangeListener);
             typeView.setOnClickListener(tabChangeListener);
+
+
+            // 刷新列表
+            prtFrameLayout.setPtrHandler(new PtrHandler() {
+                @Override
+                public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                    return PtrDefaultHandler.checkContentCanBePulledDown(prtFrameLayout, recyclerView, header);
+                }
+
+                @Override
+                public void onRefreshBegin(PtrFrameLayout frame) {
+                    autoRefresh();
+                }
+            });
+
+            autoRefresh();
         }else{
             ViewGroup parent = (ViewGroup)view.getParent();
             if(parent != null){
@@ -133,6 +155,7 @@ public class ProductsFragment extends BaseFragment {
 
     public void checkMenu(DropEnum param){
         Log.i("ProductsFragment","--product:checkMenu开始--");
+        maskView.setVisibility(View.VISIBLE);
         if(orderAdapter == null){
             Log.i("ProductsFragment","------创建orderAdapter-----"+orderAdapter.hashCode());
             orderAdapter = new DropDownAdapter(this.getActivity(), Arrays.asList(orderArrays), DropEnum.order) ;
@@ -157,16 +180,17 @@ public class ProductsFragment extends BaseFragment {
 
 
 
-    private void initData(){
-        if(bidList.size() > 0) return;
+    private void autoRefresh(){
         if(running) return;
         running = true;
+        bidList.clear();
+        prtFrameLayout.autoRefresh();
         Map<String,String> body = new HashMap<String, String>();
         body.put("pageSize","8");
         body.put("pageNum","0");
         DataRequester
         .withHttp(getActivity())
-        .setUrl(Constants.APP_BASE_URL+"/ProductList")
+        .setUrl(Constants.APP_BASE_URL+"/Common/ProductList")
         .setMethod(DataRequester.Method.POST)
         .setBody(body).setJsonArrayResponseListener(new DataRequester.JsonArrayResponseListener() {
             @Override
@@ -190,12 +214,39 @@ public class ProductsFragment extends BaseFragment {
                 if(recyclerAdapter != null){
                     recyclerAdapter.notifyDataSetChanged();
                 }
+                stopRefresh();
             }
         }).setResponseErrorListener(new DataRequester.ResponseErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 running = false;
+                stopRefresh();
             }
         }).requestJsonArray();
+    }
+
+    private void initItemClick(){
+        recyclerAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void OnItemClick(View view) {
+                BidInfoBean bidInfoBean = (BidInfoBean) view.getTag();
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("bidDetail",bidInfoBean);
+                intent.putExtras(bundle);
+                intent.setClass(getActivity(), DetailActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    // 停止刷新
+    private void stopRefresh(){
+        prtFrameLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                prtFrameLayout.refreshComplete();
+            }
+        }, 200);
     }
 }

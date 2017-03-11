@@ -7,7 +7,7 @@ package com.github.financing.bean;
  *******************************************/
 public class CheckVersionBean {
     private String versionName;// 版本名
-    private int versionCode;//版本号
+    private String versionCode;//版本号
     private String description;//版本描述
     private String downloadUrl;// 下载地址
 
@@ -19,11 +19,11 @@ public class CheckVersionBean {
         this.versionName = versionName;
     }
 
-    public int getVersionCode() {
+    public String getVersionCode() {
         return versionCode;
     }
 
-    public void setVersionCode(int versionCode) {
+    public void setVersionCode(String versionCode) {
         this.versionCode = versionCode;
     }
 

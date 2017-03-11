@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 public class CommonUtil {
 
     private static final String regPhone = "^1\\d{10}$";
-    private static final String number = "^((([1-9]{1}//d{0,9}))|([0]{1}))((//.(//d){2}))?$";
+    private static final String number = "^[1-9]{1}\\d{0,9}$";
     public static int dip2px(Context ctx,float dpValue) {
         final float scale = ctx.getResources().getDisplayMetrics().density;  
         return (int) (dpValue * scale + 0.5f);  

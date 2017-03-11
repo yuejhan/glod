@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <com.github.financing.views.loadingView.SamplePtrFrameLayout
-    android:id="@+id/ptr_frame_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ptr_frame_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
     >
+<android.support.v4.widget.NestedScrollView
+    android:id="@+id/index_pull_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgGrey"
@@ -26,7 +32,7 @@
         android:orientation="horizontal">
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/notice_height"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/gonggao"/>
@@ -35,8 +41,8 @@
             android:id="@+id/new_autoscroll_text"
             android:layout_width="match_parent"
             android:layout_height="@dimen/notice_height"
-            >
-        </com.github.financing.views.scrollText.AutoVerticalScrollTextView>
+            android:paddingTop="6dp"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -109,4 +115,5 @@
         android:id="@+id/index_comment_error"
         layout="@layout/comment_error"/>
 </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
 </com.github.financing.views.loadingView.SamplePtrFrameLayout>

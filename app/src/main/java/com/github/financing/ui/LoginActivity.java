@@ -101,7 +101,7 @@ public class LoginActivity extends BaseActivity{
 
                 DataRequester
                 .withHttp(getApplicationContext())
-                .setUrl(Constants.APP_BASE_URL+"/Login")
+                .setUrl(Constants.APP_BASE_URL+"/Common/Login")
                 .setMethod(DataRequester.Method.POST)
                 .setBody(body)
                 .setStringResponseListener(new DataRequester.StringResponseListener() {

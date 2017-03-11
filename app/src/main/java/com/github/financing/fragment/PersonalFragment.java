@@ -23,6 +23,7 @@ import com.github.financing.ui.WebViewActivity;
 import com.github.financing.utils.CommonUtil;
 import com.github.financing.utils.Constants;
 import com.github.financing.utils.FileUtil;
+import com.github.financing.utils.SecurityUtils;
 
 import org.json.JSONArray;
 import org.w3c.dom.Text;
@@ -31,6 +32,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /********************************************
  * 作者：Administrator
@@ -86,7 +88,13 @@ public class PersonalFragment extends BaseFragment {
                     body.put("cust_no","17300010020");
                     body.put("location","0020");
                     body.put("amt","1000");
-                    body.put("signature","");
+                    try {
+                        String a = new String(SecurityUtils.rsaEncrypt("1000|17300010020|0020|0001000F0096241|11032302065863805666".getBytes("UTF-8")));
+                        Log.i("===sing===",a);
+                        body.put("signature",a);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     goteWebView(Constants.FUYOU_BASE_URL,body);
 //                    DataRequester
 //                            .withHttp(getActivity())
@@ -174,5 +182,10 @@ public class PersonalFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
         Log.e("person","------------------"+requestCode+"------------------------");
         ((MainActivity)getActivity()).refresh();
+    }
+
+    //测试用，请勿生产使用
+    private String genSSn(){
+        return UUID.randomUUID().toString().substring(2).replaceAll("-","");
     }
 }

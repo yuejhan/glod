@@ -9,6 +9,10 @@ import java.io.Serializable;
  *******************************************/
 public class BidInfoBean implements Serializable{
     /**
+     * 标的id
+     */
+    private Integer bidId;
+    /**
      * 标的名称
      */
     private String bidName;
@@ -36,6 +40,14 @@ public class BidInfoBean implements Serializable{
      * 标的金额
      */
     private String TotalAmount;
+
+    public Integer getBidId() {
+        return bidId;
+    }
+
+    public void setBidId(Integer bidId) {
+        this.bidId = bidId;
+    }
 
     public String getBidName() {
         return bidName;

@@ -80,23 +80,23 @@ public class DefaultApplication extends Application{
     /**
      * 获取自定义证书的HTTPS请求队列
      */
-    public RequestQueue getSelfSslQueue(){
-        if(mSelfSslQueue == null){
-            SSLSocketFactory sslSocketFactory = SelfSSLSocketFactory.getSSLSocketFactory(getApplicationContext());
-            BasicNetwork network = new BasicNetwork(new HurlStack(null, sslSocketFactory));
-            Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024);
-            mSelfSslQueue = new RequestQueue(cache,network);
-            mSelfSslQueue.start();
-
-            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
-                @Override
-                public boolean verify(String hostname, SSLSession session) {
-                    return true;
-                }
-            });
-        }
-        return mSelfSslQueue;
-    }
+//    public RequestQueue getSelfSslQueue(){
+//        if(mSelfSslQueue == null){
+//            SSLSocketFactory sslSocketFactory = SelfSSLSocketFactory.getSSLSocketFactory(getApplicationContext());
+//            BasicNetwork network = new BasicNetwork(new HurlStack(null, sslSocketFactory));
+//            Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024);
+//            mSelfSslQueue = new RequestQueue(cache,network);
+//            mSelfSslQueue.start();
+//
+//            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
+//                @Override
+//                public boolean verify(String hostname, SSLSession session) {
+//                    return true;
+//                }
+//            });
+//        }
+//        return mSelfSslQueue;
+//    }
 
     /**
      * 获取网络类型

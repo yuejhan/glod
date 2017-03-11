@@ -69,7 +69,7 @@ public class RegisterActivity extends BaseActivity {
                 body.put("validCode",validCode);
                 DataRequester
                         .withHttp(getApplicationContext())
-                        .setUrl(Constants.APP_BASE_URL+"/Register")
+                        .setUrl(Constants.APP_BASE_URL+"/Common/Register")
                         .setMethod(DataRequester.Method.POST)
                         .setBody(body)
                         .setStringResponseListener(new DataRequester.StringResponseListener() {
@@ -107,7 +107,7 @@ public class RegisterActivity extends BaseActivity {
                 body.put("mobilephone",phoneNumber);
                 DataRequester
                         .withHttp(getApplicationContext())
-                        .setUrl(Constants.APP_BASE_URL+"/MsgAuthCode")
+                        .setUrl(Constants.APP_BASE_URL+"/Common/MsgAuthCode")
                         .setMethod(DataRequester.Method.POST)
                         .setBody(body)
                         .setStringResponseListener(new DataRequester.StringResponseListener() {

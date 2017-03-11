@@ -55,20 +55,33 @@
             />
     </LinearLayout>
     <FrameLayout
+        android:id="@+id/product_pull_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/product_recycler"
-            android:scrollbars="vertical"
+        <com.github.financing.views.loadingView.SamplePtrFrameLayout
+            android:id="@+id/product_frame_layout"
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            />
+            android:background="@color/background"
+            >
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/product_recycler"
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </com.github.financing.views.loadingView.SamplePtrFrameLayout>
+        <FrameLayout
+            android:id="@+id/mask_containt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/mask_color"
+            android:visibility="gone"/>
         <FrameLayout
             android:id="@+id/containt_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/mask_color"
             android:visibility="gone"
             >
             <GridView
@@ -82,5 +95,4 @@
                 android:numColumns="4"/>
         </FrameLayout>
     </FrameLayout>
-
 </LinearLayout>

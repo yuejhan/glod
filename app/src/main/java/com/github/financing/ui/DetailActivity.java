@@ -89,7 +89,7 @@ public class DetailActivity extends AppCompatActivity {
                 Log.e(TAG,inputAmount);
                 if(inputAmount != null && !"".equals(inputAmount)){
                     Log.e(TAG,inputAmount);
-                    float result = Integer.parseInt(inputAmount) * Float.parseFloat(bidInfoBean.getBidYearRate())/12;
+                    float result = Integer.parseInt(inputAmount) * Float.parseFloat(bidInfoBean.getBidYearRate())/1200;
                     Log.e(TAG,result+"");
                     DecimalFormat fnum  =   new DecimalFormat("##0.00");
                     String format = fnum.format(result);
@@ -121,32 +121,14 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void requestAndBuy(String inputAmount){
-        Map<String,String> body = new HashMap<String, String>();
-        DataRequester
-                .withHttp(getApplicationContext())
-                .setUrl(Constants.APP_BASE_URL+"/ProductBuy")
-                .setMethod(DataRequester.Method.POST)
-                .setBody(body)
-                .setStringResponseListener(new DataRequester.StringResponseListener() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.e(TAG,response);
-                        Map map = RequestUtil.parseResponse(response);
-                        if(map != null && "0000".equals(map.get("code"))){
-                            Toast.makeText(getApplicationContext(),"购买产品成功!",Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(getApplicationContext(),"购买产品失败!",Toast.LENGTH_SHORT).show();
-                        }
 
-                    }
-                })
-                .setResponseErrorListener(new DataRequester.ResponseErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG,"===================");
-                        Toast.makeText(getApplicationContext(),"网络异常!",Toast.LENGTH_SHORT).show();
-                    }
-                }).requestString();
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("bidDetail",bidInfoBean);
+        bundle.putString("amount",inputAmount);
+        intent.putExtras(bundle);
+        intent.setClass(this, BuyActivity.class);
+        startActivity(intent);
     }
 
 }

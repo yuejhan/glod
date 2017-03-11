@@ -44,4 +44,5 @@
 
 
     <string name="index_warn_text">*预期收益非平台承诺收益,市场有风险,投资需谨慎</string>
+    <string name="pay_buy" >立即出借</string>
 </resources>

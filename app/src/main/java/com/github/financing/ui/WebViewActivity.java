@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.SyncStateContract;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -26,6 +27,7 @@ public class WebViewActivity extends BaseActivity {
         setContentView(R.layout.activity_web);
         Intent intent = getIntent();
         postData = intent.getStringExtra(Constants.INTENT_API_DATA_KEY_DATA);
+        Log.i("webView",postData);
         webView = (WebView) findViewById(R.id.webview);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebChromeClient(new WebChromeClient(){

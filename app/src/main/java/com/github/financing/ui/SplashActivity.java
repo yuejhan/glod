@@ -31,6 +31,7 @@ public class SplashActivity extends BaseActivity{
     private final int CODE_NETWORK_ERROR = 1;
     private final int CODE_JSON_ERROR = 2;
     private final int CODE_ENTER_HOME = 3;
+    private final int CODE_UPDATE_APP = 4;
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -102,7 +103,7 @@ public class SplashActivity extends BaseActivity{
      * 检查版本号
      */
     private void checkVersion(){
-        DataRequester.withHttp(this).setUrl(Constants.APP_BASE_URL+"/MobileVersion")
+        DataRequester.withHttp(this).setUrl(Constants.APP_BASE_URL+"/Account/MobileVersion")
                 .setMethod(DataRequester.Method.POST)
                 .setStringResponseListener(new DataRequester.StringResponseListener() {
                     @Override
@@ -111,10 +112,17 @@ public class SplashActivity extends BaseActivity{
                         try {
                             ObjectMapper mapper = new ObjectMapper();
                             CheckVersionBean bean = mapper.readValue(response, CheckVersionBean.class);
+                            int currentCode = 0;
+                            try{
+                                currentCode = Integer.parseInt(bean.getVersionCode().substring(1, 2));
+                            }catch (Exception e){
+
+                            }
+
                             // 判断是否有更新
-                            if(bean.getVersionCode() > getVersionCode()){
+                            if( currentCode > getVersionCode()){
                                 // 弹出更新对话框
-                                mHandler.sendMessageDelayed(mHandler.obtainMessage(CODE_ENTER_HOME),2000);
+                                mHandler.sendMessageDelayed(mHandler.obtainMessage(CODE_UPDATE_APP),2000);
                             }else{
                                 // 跳转主页
                                 mHandler.sendMessageDelayed(mHandler.obtainMessage(CODE_ENTER_HOME),2000);
