@@ -21,28 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/bgWhile">
-                <ImageView
-                    android:id="@+id/server_touxiang"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:background="@drawable/licaishi_touxiang"
-                    />
-                <TextView
-                    android:id="@+id/server_setting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:padding="10dp"
-                    android:textColor="@color/textBlue"
-                    android:layout_toRightOf="@id/server_touxiang"
-                    android:text="@string/server_touxiang"
-                    />
-            </RelativeLayout>
             <TextView
                 android:id="@+id/server_computer"
                 android:background="@color/bgWhile"

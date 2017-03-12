@@ -25,9 +25,9 @@ public class TabChangeListener implements View.OnClickListener {
         }else{
             containt.setVisibility(View.VISIBLE);
             if("order".equals(v.getTag())){
-                context.checkMenu(DropEnum.order);
+//                context.checkMenu(DropEnum.order);
             }else if("type".equals(v.getTag())){
-                context.checkMenu(DropEnum.type);
+//                context.checkMenu(DropEnum.type);
             }
         }
     }

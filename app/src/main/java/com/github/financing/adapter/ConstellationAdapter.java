@@ -7,37 +7,29 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+
 import com.github.financing.R;
-import com.github.financing.utils.DropEnum;
 
 import java.util.List;
 
-
-
-public class DropDownAdapter extends BaseAdapter {
+public class ConstellationAdapter extends BaseAdapter {
 
     private Context context;
     private List<String> list;
-
     private int checkItemPosition = 0;
-    private DropEnum type;
 
     public void setCheckItem(int position) {
         checkItemPosition = position;
         notifyDataSetChanged();
     }
 
-    public DropDownAdapter(Context context,List<String> list,DropEnum type) {
+    public ConstellationAdapter(Context context, List<String> list) {
         this.context = context;
         this.list = list;
-        this.type = type;
     }
 
     @Override
     public int getCount() {
-        if(list == null){
-            return 0;
-        }
         return list.size();
     }
 
@@ -57,7 +49,7 @@ public class DropDownAdapter extends BaseAdapter {
         if (convertView != null) {
             viewHolder = (ViewHolder) convertView.getTag();
         } else {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_dropdown_type, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_constellation_layout, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         }
@@ -65,9 +57,6 @@ public class DropDownAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public DropEnum getMenuType(){
-        return type;
-    }
     private void fillValue(int position, ViewHolder viewHolder) {
         viewHolder.mText.setText(list.get(position));
         if (checkItemPosition != -1) {
@@ -82,10 +71,11 @@ public class DropDownAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
+
         TextView mText;
 
         ViewHolder(View view) {
-            mText = (TextView)view.findViewById(R.id.text);
+            mText = (TextView) view.findViewById(R.id.text);
         }
     }
 }

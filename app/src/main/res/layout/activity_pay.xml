@@ -1,19 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+<LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgGrey">
-
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
-        android:textColor="@color/textWhile"
-        android:textSize="@dimen/title_size"
-        android:gravity="center"
-        android:text="@string/pay_buy"
-        android:background="@color/textRed"
-        />
+        android:background="@color/textRed">
+        <RelativeLayout
+            android:id="@+id/buy_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textWhile"
+            android:text="立即出借"
+            android:textSize="@dimen/text_20"/>
+    </RelativeLayout>
+
     <com.github.financing.views.ReboundView.ReboundScrollView
         android:layout_below="@id/detail_title_inner"
         android:layout_width="match_parent"
@@ -155,3 +177,5 @@
 
         </com.github.financing.views.ReboundView.ReboundScrollView>
 </LinearLayout>
+
+</RelativeLayout>

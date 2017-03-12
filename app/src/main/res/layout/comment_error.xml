@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/bgGrey"
     android:gravity="center"
+    android:visibility="gone"
     >
     <ImageView
         android:background="@drawable/icon_no_net"
