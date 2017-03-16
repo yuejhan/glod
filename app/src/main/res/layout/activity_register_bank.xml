@@ -200,19 +200,115 @@
     android:id="@+id/bind_bankCity_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:visibility="invisible"
     >
-    <View
-        android:id="@+id/bind_mask"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="@color/bgGray"
-        />
-    <com.github.financing.views.citypacker.CityPickerView
-        android:id="@+id/citypicker"
-        android:layout_width="match_parent"
-        android:layout_height="156dp"
-        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            android:background="@color/bgWhile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp">
+            <TextView
+                android:id="@+id/bind_city_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/textGrey"
+                android:layout_alignParentLeft="true"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/textWhile"
+                android:text="取消"/>
+            <TextView
+                android:id="@+id/bind_city_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/textBlue"
+                android:layout_gravity="right"
+                android:layout_alignParentRight="true"
+                android:paddingLeft="13dp"
+                android:paddingRight="13dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/textWhile"
+                android:text="确认"/>
+        </RelativeLayout>
+    <LinearLayout
+        xmlns:su="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/city_layout"
         android:background="@color/bgWhile"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+        <com.github.financing.views.citypacker.ScrollerCity
+            android:id="@+id/province"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            su:itemNumber="3"
+            su:lineColor="@color/colorPrimaryDark"
+            su:maskHight="32dp"
+            su:noEmpty="true"
+            su:normalTextColor="@color/colorPrimaryDark"
+            su:normalTextSize="14sp"
+            su:selecredTextColor="#ff000000"
+            su:selecredTextSize="22sp"
+            su:unitHight="50dp" />
+
+        <com.github.financing.views.citypacker.ScrollerCity
+            android:id="@+id/city"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            su:itemNumber="3"
+            su:lineColor="@color/colorPrimaryDark"
+            su:maskHight="32dp"
+            su:noEmpty="true"
+            su:normalTextColor="@color/colorPrimaryDark"
+            su:normalTextSize="14sp"
+            su:selecredTextColor="#ff000000"
+            su:selecredTextSize="22sp"
+            su:unitHight="50dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/bank_layout"
+        xmlns:su="http://schemas.android.com/apk/res-auto"
+        android:background="@color/bgWhile"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:visibility="invisible"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+        <com.github.financing.views.citypacker.ScrollerCity
+            android:id="@+id/bank_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            su:itemNumber="3"
+            su:lineColor="@color/colorPrimaryDark"
+            su:maskHight="32dp"
+            su:noEmpty="true"
+            su:normalTextColor="@color/colorPrimaryDark"
+            su:normalTextSize="14sp"
+            su:selecredTextColor="#ff000000"
+            su:selecredTextSize="22sp"
+            su:unitHight="50dp" />
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>
 </FrameLayout>

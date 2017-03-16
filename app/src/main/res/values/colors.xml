@@ -4,6 +4,7 @@
 
     <color name="bgGrey">#FFEBEBEB</color>
     <color name="bgGray">#77EBEBEB</color>
+    <color name="gray">#CC808080</color>
     <color name="bgBlue">#FF43B3FF</color>
     <color name="bgWhile">#FFFFFFFF</color>
 

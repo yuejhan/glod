@@ -19,10 +19,10 @@ public class CityUtil {
 
 	private ArrayList<String> province_list = new ArrayList<String>();
 	private ArrayList<String> city_list = new ArrayList<String>();
-	private ArrayList<String> couny_list = new ArrayList<String>();
+	private ArrayList<String> bank_list = new ArrayList<String>();
 	public ArrayList<String> province_list_code = new ArrayList<String>();
 	public ArrayList<String> city_list_code = new ArrayList<String>();
-	public ArrayList<String> couny_list_code = new ArrayList<String>();
+	public ArrayList<String> bank_list_code = new ArrayList<String>();
 	/** 单例 */
 	public static CityUtil model;
 	private Context context;
@@ -33,27 +33,26 @@ public class CityUtil {
 	public ArrayList<String> getProvince_list_code() {
 		return province_list_code;
 	}
+	public String getProvinceCode(int i){
+		return province_list_code.get(i);
+	}
 
 	public ArrayList<String> getCity_list_code() {
 		return city_list_code;
 	}
 
-	public void setCity_list_code(ArrayList<String> city_list_code) {
-		this.city_list_code = city_list_code;
+	public String getCityCode(int i){
+		return city_list_code.get(i);
 	}
 
-	public ArrayList<String> getCouny_list_code() {
-		return couny_list_code;
+	public ArrayList<String> getBank_list_code() {
+		return bank_list_code;
 	}
 
-	public void setCouny_list_code(ArrayList<String> couny_list_code) {
-		this.couny_list_code = couny_list_code;
+	public String getBankCode(int i){
+		return bank_list_code.get(i);
 	}
 
-	public void setProvince_list_code(ArrayList<String> province_list_code) {
-
-		this.province_list_code = province_list_code;
-	}
 
 	/**
 	 * 获取单例
@@ -100,28 +99,17 @@ public class CityUtil {
 
 	}
 
-	public ArrayList<String> getCouny(
-			HashMap<String, List<Cityinfo>> cityHashMap, String citycode) {
-		List<Cityinfo> couny = null;
-		if (couny_list_code.size() > 0) {
-			couny_list_code.clear();
-
+	public ArrayList<String> getBank(List<Cityinfo> bank) {
+		if (bank_list_code.size() > 0) {
+			bank_list_code.clear();
 		}
-		if (couny_list.size() > 0) {
-			couny_list.clear();
+		if (bank_list.size() > 0) {
+			bank_list.clear();
 		}
-		if (couny == null) {
-			couny = new ArrayList<Cityinfo>();
-		} else {
-			couny.clear();
+		for (int i = 0; i < bank.size(); i++) {
+			bank_list.add(bank.get(i).getCity_name());
+			bank_list_code.add(bank.get(i).getId());
 		}
-
-		couny = cityHashMap.get(citycode);
-		for (int i = 0; i < couny.size(); i++) {
-			couny_list.add(couny.get(i).getCity_name());
-			couny_list_code.add(couny.get(i).getId());
-		}
-		return couny_list;
-
+		return bank_list;
 	}
 }

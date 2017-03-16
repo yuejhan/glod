@@ -15,6 +15,8 @@ public class CommonUtil {
 
     private static final String regPhone = "^1\\d{10}$";
     private static final String number = "^[1-9]{1}\\d{0,9}$";
+    private static final String bankNoStr = "\\d{15,20}$";
+    private static final String certNoStr ="^(\\d{6})(18|19|20)?(\\d{2})([01]\\d)([0123]\\d)(\\d{3})(\\d|X|x)?$";
     public static int dip2px(Context ctx,float dpValue) {
         final float scale = ctx.getResources().getDisplayMetrics().density;  
         return (int) (dpValue * scale + 0.5f);  
@@ -58,6 +60,21 @@ public class CommonUtil {
         return password != null;
     }
 
-    //
+    //校验空字符串
+    public static boolean checkNull(String string){
+        return string == null || "".equals(string);
+    }
+
+    public static boolean checkBankNo(String no){
+        Pattern pattern = Pattern.compile(bankNoStr);
+        Matcher matcher = pattern.matcher(no);
+        return matcher.matches();
+    }
+
+    public static boolean checkCertNo(String certNo){
+        Pattern pattern = Pattern.compile(certNoStr);
+        Matcher matcher = pattern.matcher(certNo);
+        return matcher.matches();
+    }
 
 }
