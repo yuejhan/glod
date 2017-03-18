@@ -89,8 +89,10 @@ public class CityUtil {
 		if (city_list.size() > 0) {
 			city_list.clear();
 		}
-		List<Cityinfo> city = new ArrayList<Cityinfo>();
-		city = cityHashMap.get(provicecode);
+		List<Cityinfo> city = cityHashMap.get(provicecode);
+		if(city==null){
+			city = new ArrayList<Cityinfo>();
+		}
 		for (int i = 0; i < city.size(); i++) {
 			city_list.add(city.get(i).getCity_name());
 			city_list_code.add(city.get(i).getId());
@@ -110,6 +112,27 @@ public class CityUtil {
 			bank_list.add(bank.get(i).getCity_name());
 			bank_list_code.add(bank.get(i).getId());
 		}
+		return bank_list;
+	}
+
+	public List<Cityinfo> getBankList(){
+		ArrayList<Cityinfo> bank_list = new ArrayList<>();
+		Cityinfo cityinfo = new Cityinfo();
+		cityinfo.setId("0001");
+		cityinfo.setCity_name("中国银行");
+		bank_list.add(cityinfo);
+		Cityinfo cityinfo1 = new Cityinfo();
+		cityinfo1.setId("0001");
+		cityinfo1.setCity_name("中国工商银行");
+		bank_list.add(cityinfo1);
+		Cityinfo cityinfo2 = new Cityinfo();
+		cityinfo2.setId("0001");
+		cityinfo2.setCity_name("中国建设银行");
+		bank_list.add(cityinfo2);
+		Cityinfo cityinfo3 = new Cityinfo();
+		cityinfo3.setId("0001");
+		cityinfo3.setCity_name("中国农业银行");
+		bank_list.add(cityinfo3);
 		return bank_list;
 	}
 }

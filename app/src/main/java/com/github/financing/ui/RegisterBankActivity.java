@@ -2,10 +2,12 @@ package com.github.financing.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.util.Log;
@@ -27,6 +29,12 @@ import com.github.financing.utils.FileUtil;
 import com.github.financing.views.citypacker.ScrollerCity;
 import com.github.financing.views.dialog.SVProgressHUD;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -103,13 +111,13 @@ public class RegisterBankActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_bank);
-        //初始化数据信息
-        getaddressinfo();
         // 初始化视图信息
         initView();
         // 初始化地区选择框
         initCityPicker();
         mSVProgressHUD = new SVProgressHUD(this);
+        //初始化数据信息
+        getaddressinfo();
     }
 
     private void initView(){
@@ -139,28 +147,80 @@ public class RegisterBankActivity extends AppCompatActivity {
 
     // 获取城市信息
     private void getaddressinfo() {
-        for(int i =1;i<10;i++){
-            Cityinfo cityinfo = new Cityinfo();
-            cityinfo.setId("code"+i+"");
-            cityinfo.setCity_name("省份"+i);
-            province_list.add(cityinfo);
-        }
-        for(int i = 1;i<10;i++){
-            ArrayList<Cityinfo> cityinfos = new ArrayList<>();
-            for(int j=1;j<6;j++){
-                Cityinfo cityinfo = new Cityinfo();
-                cityinfo.setId("code"+j+"");
-                cityinfo.setCity_name("城市" + i + "-" + j);
-                cityinfos.add(cityinfo);
+        BufferedReader bufferedReader = null;
+        InputStreamReader inputReader = null;
+        try {
+            inputReader = new InputStreamReader(getResources().getAssets().open("g.txt"));
+            bufferedReader = new BufferedReader(inputReader);
+            String temp = null;
+            while ((temp = bufferedReader.readLine()) != null){
+                String[] split = temp.split(",");
+                if("1".equals(split[2].trim())){
+                    if(split[0].length()>=7){
+                        split[0]=split[0].substring(1);
+                    }
+                    Cityinfo cityinfo = new Cityinfo();
+                    cityinfo.setId(split[0].trim());
+                    cityinfo.setCity_name(split[1]);
+                    province_list.add(cityinfo);
+                }else{
+                    List<Cityinfo> cityinfos =  city_map.get(split[2].trim());
+                    Cityinfo cityinfo = new Cityinfo();
+                    cityinfo.setId(split[0].trim());
+                    cityinfo.setCity_name(split[1].trim());
+
+                    if(cityinfos == null){
+                        cityinfos = new ArrayList<>();
+                    }
+                    cityinfos.add(cityinfo);
+                    city_map.put(split[2].trim(),cityinfos);
+                }
             }
-            city_map.put("code"+i+"",cityinfos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if(bufferedReader != null){
+                try {
+                    bufferedReader.close();
+                } catch (IOException e) {
+                }
+            }
+            if(inputReader != null){
+                try {
+                    inputReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        for(int i =1;i<10;i++){
-            Cityinfo cityinfo = new Cityinfo();
-            cityinfo.setId("code"+i+"");
-            cityinfo.setCity_name("银行名册");
-            bank_list.add(cityinfo);
-        }
+//        province_list.clear();
+//        for(int i =1;i<10;i++){
+//            Cityinfo cityinfo = new Cityinfo();
+//            cityinfo.setId("code"+i+"");
+//            cityinfo.setCity_name("省份"+i);
+//            province_list.add(cityinfo);
+//        }
+//        city_map.clear();
+//        for(int i = 1;i<10;i++){
+//            ArrayList<Cityinfo> cityinfos = new ArrayList<>();
+//            for(int j=1;j<6;j++){
+//                Cityinfo cityinfo = new Cityinfo();
+//                cityinfo.setId("code"+j+"");
+//                cityinfo.setCity_name("城市" + i + "-" + j);
+//                cityinfos.add(cityinfo);
+//            }
+//            city_map.put("code"+i+"",cityinfos);
+//        }
+       bank_list = citycodeUtil.getBankList();
+
+        provincePicker.setData(citycodeUtil.getProvince(province_list));
+        provincePicker.setDefault(0);
+
+        cityPicker.setData(citycodeUtil.getCity(city_map, citycodeUtil.getProvince_list_code().get(0)));
+        cityPicker.setDefault(0);
+
+        bankPicker.setData(citycodeUtil.getBank(bank_list));
+        bankPicker.setDefault(0);
 
     }
 
@@ -240,16 +300,6 @@ public class RegisterBankActivity extends AppCompatActivity {
         cityPicker = (ScrollerCity) findViewById(R.id.city);
         bankPicker = (ScrollerCity) findViewById(R.id.bank_list);
 
-        provincePicker.setData(citycodeUtil.getProvince(province_list));
-        provincePicker.setDefault(0);
-
-        cityPicker.setData(citycodeUtil.getCity(city_map, citycodeUtil.getProvince_list_code().get(0)));
-        cityPicker.setDefault(0);
-
-        bankPicker.setData(citycodeUtil.getBank(bank_list));
-        bankPicker.setDefault(0);
-
-
         provincePicker.setOnSelectListener(new ScrollerCity.OnSelectListener() {
 
             @Override
@@ -316,7 +366,7 @@ public class RegisterBankActivity extends AppCompatActivity {
                 if (text.equals("") || text == null)
                     return;
                 if (tempBankIndex != id) {
-                    int lastDay = Integer.valueOf(cityPicker.getListSize());
+                    int lastDay = Integer.valueOf(bankPicker.getListSize());
                     if (id > lastDay) {
                         bankPicker.setDefault(lastDay - 1);
                     }
@@ -392,4 +442,5 @@ public class RegisterBankActivity extends AppCompatActivity {
         }
 
     }
+
 }

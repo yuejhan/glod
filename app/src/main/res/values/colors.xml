@@ -2,7 +2,7 @@
 <resources>
 
 
-    <color name="bgGrey">#FFEBEBEB</color>
+    <color name="bgGrey">#99EBEBEB</color>
     <color name="bgGray">#77EBEBEB</color>
     <color name="gray">#CC808080</color>
     <color name="bgBlue">#FF43B3FF</color>
