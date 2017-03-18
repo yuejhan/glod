@@ -1,5 +1,6 @@
 package com.github.financing.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -25,7 +27,7 @@ import java.io.IOException;
  * 时间：2016/10/30
  * 描述：
  *******************************************/
-public class SplashActivity extends BaseActivity{
+public class SplashActivity extends Activity {
     private static final String TAG_SPLASHACTIVITY = "**splashactivity**";
     private final int CODE_URL_ERROR = 0;
     private final int CODE_NETWORK_ERROR = 1;

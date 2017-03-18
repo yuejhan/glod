@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.SyncStateContract;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -18,7 +19,7 @@ import com.github.financing.utils.Constants;
  * 时间：2016/10/22
  * 描述：
  *******************************************/
-public class WebViewActivity extends BaseActivity {
+public class WebViewActivity extends AppCompatActivity {
     private WebView webView;
     String postData;
     @Override
@@ -28,7 +29,7 @@ public class WebViewActivity extends BaseActivity {
         Intent intent = getIntent();
         postData = intent.getStringExtra(Constants.INTENT_API_DATA_KEY_DATA);
         Log.i("webView",postData);
-        webView = (WebView) findViewById(R.id.web_view);
+        webView = (WebView) findViewById(R.id.webview);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebChromeClient(new WebChromeClient(){
             @Override

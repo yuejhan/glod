@@ -3,6 +3,7 @@ package com.github.financing.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -30,7 +31,7 @@ import java.util.Map;
  * 时间：2016/11/27
  * 描述：登录界面
  *******************************************/
-public class LoginActivity extends BaseActivity{
+public class LoginActivity extends AppCompatActivity {
     private TextView tvLogin,tvRegister,tvForget;
     private RelativeLayout rlBack;
     private EditText etUserName,etPassword;

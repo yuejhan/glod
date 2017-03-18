@@ -10,6 +10,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.github.financing.R;
 import com.github.financing.utils.Constants;
@@ -22,14 +23,19 @@ import com.github.financing.utils.Constants;
 public class WebTitleViewActivity  extends AppCompatActivity{
     private WebView webView;
     private View backView;
+    private TextView titleView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
 
         Intent intent = getIntent();
-        String url = intent.getStringExtra(Constants.INTENT_API_DATA_KEY_DATA);
-        webView = (WebView) this.findViewById(R.id.webview);
+        String title = intent.getStringExtra(Constants.INTENT_API_DATA_KEY_DATA);
+        String url = intent.getStringExtra(Constants.INTENT_API_DATA_KEY_URL);
+
+        webView = (WebView) this.findViewById(R.id.web_view);
+        titleView = (TextView) this.findViewById(R.id.web_title);
+        titleView.setText(title);
         backView = this.findViewById(R.id.web_back);
         backView.setOnClickListener(new View.OnClickListener() {
             @Override

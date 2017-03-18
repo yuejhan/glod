@@ -3,6 +3,7 @@ package com.github.financing.ui;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -27,7 +28,7 @@ import java.util.Map;
  * 时间：2016/12/4
  * 描述：
  *******************************************/
-public class RegisterActivity extends BaseActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     private RelativeLayout rlBack;
     private TextView tvRegister,tvGetCode;

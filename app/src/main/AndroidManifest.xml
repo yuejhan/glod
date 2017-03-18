@@ -14,7 +14,8 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:versionName="v1"
         android:versionCode="1">
-        <activity android:name=".ui.SplashActivity">
+        <activity android:name=".ui.SplashActivity"
+            android:theme="@style/Splash_Theme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

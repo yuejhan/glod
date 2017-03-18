@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -30,7 +31,7 @@ import java.util.Map;
  * 时间：2016/11/27
  * 描述：
  *******************************************/
-public class ForgetActivity extends BaseActivity {
+public class ForgetActivity extends AppCompatActivity {
     private TextView tvNext,tvGetValid;
     private RelativeLayout rlBack;
     private EditText etPhone,etValidCode;

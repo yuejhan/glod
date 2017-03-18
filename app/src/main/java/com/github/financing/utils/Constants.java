@@ -3,6 +3,7 @@ package com.github.financing.utils;
 public class Constants {
 
     public static final String INTENT_API_DATA_KEY_DATA = "intent_date";
+    public static final String INTENT_API_DATA_KEY_URL = "intent_url";
     //手机服务端基本地址
     public static final String APP_BASE_URL = "http://www.thjcf.com.cn/MI";
 

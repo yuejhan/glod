@@ -31,16 +31,14 @@ public class ServerFragment extends BaseFragment {
         @Override
         public void onClick(View view) {
             switch (view.getId()){
-                case R.id.server_computer:
-                    break;
                 case R.id.server_help:
-                    gotoWebView("file:///android_asset/sample.html");
+                    gotoWebView("file:///android_asset/sample.html","帮助中心");
                     break;
                 case R.id.server_kefu:
                    showDialog();
                     break;
                 case R.id.server_about:
-                    gotoWebView("file:///android_asset/sample.html");
+                    gotoWebView("file:///android_asset/sample.html","关于我们");
                     break;
             }
         }
@@ -50,8 +48,8 @@ public class ServerFragment extends BaseFragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if(view == null){
             view = inflater.inflate(R.layout.fragment_activity, null);
-            tvComputer = (TextView) view.findViewById(R.id.server_computer);
-            tvComputer.setOnClickListener(clickListener);
+//            tvComputer = (TextView) view.findViewById(R.id.server_computer);
+//            tvComputer.setOnClickListener(clickListener);
             tvHelp = (TextView) view.findViewById(R.id.server_help);
             tvHelp.setOnClickListener(clickListener);
             tvKefu = (TextView) view.findViewById(R.id.server_kefu);
@@ -92,9 +90,10 @@ public class ServerFragment extends BaseFragment {
         dialog.show();
     }
 
-    private void gotoWebView(String url){
+    private void gotoWebView(String url,String title){
         Intent intent = new Intent(getActivity(),WebTitleViewActivity.class);
-        intent.putExtra(Constants.INTENT_API_DATA_KEY_DATA, url);
+        intent.putExtra(Constants.INTENT_API_DATA_KEY_URL, url);
+        intent.putExtra(Constants.INTENT_API_DATA_KEY_DATA, title);
         startActivity(intent);
     }
 }

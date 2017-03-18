@@ -3,6 +3,7 @@ package com.github.financing.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -27,7 +28,7 @@ import java.util.Map;
  * 时间：2016/11/27
  * 描述：
  *******************************************/
-public class ResetPasswordActivity extends BaseActivity {
+public class ResetPasswordActivity extends AppCompatActivity {
     private RelativeLayout rlBack;
     private TextView tvConfirm;
     private EditText etPasswd,etPassAgain;
