@@ -118,21 +118,26 @@ public class CityUtil {
 	public List<Cityinfo> getBankList(){
 		ArrayList<Cityinfo> bank_list = new ArrayList<>();
 		Cityinfo cityinfo = new Cityinfo();
-		cityinfo.setId("0001");
-		cityinfo.setCity_name("中国银行");
+		cityinfo.setId("0102");
+		cityinfo.setCity_name("中国工商银行");
 		bank_list.add(cityinfo);
 		Cityinfo cityinfo1 = new Cityinfo();
-		cityinfo1.setId("0001");
-		cityinfo1.setCity_name("中国工商银行");
+		cityinfo1.setId("0103");
+		cityinfo1.setCity_name("中国农业银行");
 		bank_list.add(cityinfo1);
 		Cityinfo cityinfo2 = new Cityinfo();
-		cityinfo2.setId("0001");
-		cityinfo2.setCity_name("中国建设银行");
+		cityinfo2.setId("0104");
+		cityinfo2.setCity_name("中国银行");
 		bank_list.add(cityinfo2);
 		Cityinfo cityinfo3 = new Cityinfo();
-		cityinfo3.setId("0001");
-		cityinfo3.setCity_name("中国农业银行");
+		cityinfo3.setId("0105");
+		cityinfo3.setCity_name("中国建设银行");
 		bank_list.add(cityinfo3);
+
+		Cityinfo cityinfo4 = new Cityinfo();
+		cityinfo4.setId("0301");
+		cityinfo4.setCity_name("交通银行");
+		bank_list.add(cityinfo4);
 		return bank_list;
 	}
 }
