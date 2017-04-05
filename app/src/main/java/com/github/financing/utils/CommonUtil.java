@@ -86,4 +86,10 @@ public class CommonUtil {
         SimpleDateFormat yyMMdd = new SimpleDateFormat("yyMMdd");
         return MOUNTHS[instance.get(Calendar.MONTH)]+WEEKS[instance.get(Calendar.DAY_OF_WEEK)]+yyMMdd.format(instance.getTime());
     }
+
+    public static String currentTimeFormat(){
+        Calendar instance = Calendar.getInstance();
+        SimpleDateFormat yyyyMMddHHmmss = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        return yyyyMMddHHmmss.format(instance.getTime());
+    }
 }

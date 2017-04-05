@@ -277,6 +277,7 @@ public class RegisterBankActivity extends AppCompatActivity {
             body.put("certif_id",certNoStr);
             userNameStr = SecurityUtils.toHexString(SecurityUtils.encrypt(userNameStr,key));
             body.put("realName",userNameStr);
+            body.put("mchnt_txn_ssn",CommonUtil.currentTimeFormat());
         }catch (Exception e){
 
         }
