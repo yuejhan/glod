@@ -26,6 +26,7 @@ import com.github.financing.utils.CityUtil;
 import com.github.financing.utils.CommonUtil;
 import com.github.financing.utils.Constants;
 import com.github.financing.utils.FileUtil;
+import com.github.financing.utils.SecurityUtils;
 import com.github.financing.views.citypacker.ScrollerCity;
 import com.github.financing.views.dialog.SVProgressHUD;
 
@@ -211,7 +212,7 @@ public class RegisterBankActivity extends AppCompatActivity {
 //            }
 //            city_map.put("code"+i+"",cityinfos);
 //        }
-       bank_list = citycodeUtil.getBankList();
+        bank_list = citycodeUtil.getBankList();
 
         provincePicker.setData(citycodeUtil.getProvince(province_list));
         provincePicker.setDefault(0);
@@ -257,14 +258,28 @@ public class RegisterBankActivity extends AppCompatActivity {
         }
         mSVProgressHUD.showWithStatus("注册中...",SVProgressHUD.SVProgressHUDMaskType.Black);
         // 请求网络
+        String key = CommonUtil.joinKey();
         Map<String,String> body = new HashMap<String, String>();
-        body.put("bank",citycodeUtil.getBankCode(tempBankIndex));
-        body.put("city_id",citycodeUtil.getCityCode(temCityIndex));
-        body.put("cust_nm","");
-        body.put("capAcntNo",bankNoStr);
-        body.put("certif_id",certNoStr);
-        body.put("realName",userNameStr);
-        body.put("mobile_no", FileUtil.getStringValue("userPhone"));
+        try{
+            String bankCode = citycodeUtil.getBankCode(tempBankIndex);
+            bankCode = SecurityUtils.toHexString(SecurityUtils.encrypt(bankCode,key));
+            body.put("bank",bankCode);
+            String cityCode = citycodeUtil.getCityCode(temCityIndex);
+            cityCode = SecurityUtils.toHexString(SecurityUtils.encrypt(cityCode,key));
+            body.put("city_id",cityCode);
+            String userPhone = FileUtil.getStringValue("userPhone");
+            userPhone = SecurityUtils.toHexString(SecurityUtils.encrypt(userPhone,key));
+            body.put("cust_nm",userPhone);
+            body.put("mobile_no",userPhone);
+            bankNoStr = SecurityUtils.toHexString(SecurityUtils.encrypt(bankNoStr,key));
+            body.put("capAcntNo",bankNoStr);
+            certNoStr = SecurityUtils.toHexString(SecurityUtils.encrypt(certNoStr,key));
+            body.put("certif_id",certNoStr);
+            userNameStr = SecurityUtils.toHexString(SecurityUtils.encrypt(userNameStr,key));
+            body.put("realName",userNameStr);
+        }catch (Exception e){
+
+        }
         Log.e("params",body.toString());
         DataRequester
                 .withHttp(getApplicationContext())

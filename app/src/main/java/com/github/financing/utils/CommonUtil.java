@@ -4,7 +4,9 @@ import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -17,6 +19,8 @@ public class CommonUtil {
     private static final String number = "^[1-9]{1}\\d{0,9}$";
     private static final String bankNoStr = "\\d{15,20}$";
     private static final String certNoStr ="^(\\d{6})(18|19|20)?(\\d{2})([01]\\d)([0123]\\d)(\\d{3})(\\d|X|x)?$";
+    private static final String[] MOUNTHS = {"J","F","M","A","M","J","J","A","S","O","N","D"};
+    private static final String[] WEEKS = {"","S","M","T","W","T","F","S"};
     public static int dip2px(Context ctx,float dpValue) {
         final float scale = ctx.getResources().getDisplayMetrics().density;  
         return (int) (dpValue * scale + 0.5f);  
@@ -77,4 +81,9 @@ public class CommonUtil {
         return matcher.matches();
     }
 
+    public static String joinKey(){
+        Calendar instance = Calendar.getInstance();
+        SimpleDateFormat yyMMdd = new SimpleDateFormat("yyMMdd");
+        return MOUNTHS[instance.get(Calendar.MONTH)]+WEEKS[instance.get(Calendar.DAY_OF_WEEK)]+yyMMdd.format(instance.getTime());
+    }
 }
