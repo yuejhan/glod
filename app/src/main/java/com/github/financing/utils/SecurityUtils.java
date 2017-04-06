@@ -119,17 +119,16 @@ public class SecurityUtils {
 
     public static void main(String[] args) {
         String key = CommonUtil.joinKey();
-        System.out.println(key+"     "+ CommonUtil.currentTimeFormat());
 
         try {
-//            System.out.println(toHexString(encrypt("0105",key)));
-//            System.out.println(toHexString(encrypt("1000",key)));
-//            System.out.println(toHexString(encrypt("1000",key)));
-//            System.out.println(toHexString(encrypt("6217000010088309300",key)));
-//            System.out.println(toHexString(encrypt("371525199205141027",key)));
-//            System.out.println(toHexString(encrypt("牛贝贝",key)));
-//            System.out.println(toHexString(encrypt("15110227181",key)));
-//            System.out.println(toHexString(encrypt("2017040521584811120170405215848111",key)));
+            System.out.println(toHexString(encrypt("0105",key)));
+            System.out.println(toHexString(encrypt("1000",key)));
+            System.out.println(toHexString(encrypt("牛贝贝",key)));
+            System.out.println(toHexString(encrypt("6217000010088309300",key)));
+            System.out.println(toHexString(encrypt("371525199205141027",key)));
+            System.out.println(toHexString(encrypt("牛贝贝",key)));
+            System.out.println(toHexString(encrypt("15110227181",key)));
+            System.out.println(toHexString(encrypt(CommonUtil.currentTimeFormat(),key)));
         } catch (Exception e) {
             e.printStackTrace();
         }
