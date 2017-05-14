@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.financing.R;
+import com.github.financing.utils.BusiConstant;
 import com.github.financing.utils.FileUtil;
 
 /********************************************
@@ -38,7 +39,7 @@ public class SettingActivity extends AppCompatActivity {
         tvUsername = (TextView) this.findViewById(R.id.setting_username);
         tvVersion = (TextView) this.findViewById(R.id.setting_version);
         tvLogout = (TextView)this.findViewById(R.id.setting_logout);
-        tvUsername.setText(FileUtil.getStringValue("userPhone"));
+        tvUsername.setText(FileUtil.getStringValue(BusiConstant.USERPHONE));
         tvLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

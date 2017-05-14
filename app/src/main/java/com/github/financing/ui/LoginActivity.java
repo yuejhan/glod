@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.financing.R;
 import com.github.financing.base.BaseActivity;
 import com.github.financing.requester.DataRequester;
+import com.github.financing.utils.BusiConstant;
 import com.github.financing.utils.CommonUtil;
 import com.github.financing.utils.Constants;
 import com.github.financing.utils.FileUtil;
@@ -117,8 +118,8 @@ public class LoginActivity extends AppCompatActivity {
                                 return;
                             }
                             if("0000".equals(map.get("code"))){
-                                FileUtil.putValue("token",map.get("token").toString());
-                                FileUtil.putValue("userPhone",userName);
+                                FileUtil.putValue(BusiConstant.TOKEN,map.get("token").toString());
+                                FileUtil.putValue(BusiConstant.USERPHONE,userName);
                                 LoginActivity.this.finish();
                             }else{
                                 Toast.makeText(getApplicationContext(),map.get("message").toString(),Toast.LENGTH_LONG).show();

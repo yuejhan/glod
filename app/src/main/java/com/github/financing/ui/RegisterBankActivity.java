@@ -22,6 +22,7 @@ import com.github.financing.R;
 import com.github.financing.bean.Cityinfo;
 import com.github.financing.requester.DataRequester;
 import com.github.financing.requester.RequestUtil;
+import com.github.financing.utils.BusiConstant;
 import com.github.financing.utils.CityUtil;
 import com.github.financing.utils.CommonUtil;
 import com.github.financing.utils.Constants;
@@ -157,7 +158,7 @@ public class RegisterBankActivity extends AppCompatActivity {
             while ((temp = bufferedReader.readLine()) != null){
                 String[] split = temp.split(",");
                 if("1".equals(split[2].trim())){
-                    if(split[0].length()>=7){
+                    if(split[0].length()>=5){
                         split[0]=split[0].substring(1);
                     }
                     Cityinfo cityinfo = new Cityinfo();
@@ -194,24 +195,6 @@ public class RegisterBankActivity extends AppCompatActivity {
                 }
             }
         }
-//        province_list.clear();
-//        for(int i =1;i<10;i++){
-//            Cityinfo cityinfo = new Cityinfo();
-//            cityinfo.setId("code"+i+"");
-//            cityinfo.setCity_name("省份"+i);
-//            province_list.add(cityinfo);
-//        }
-//        city_map.clear();
-//        for(int i = 1;i<10;i++){
-//            ArrayList<Cityinfo> cityinfos = new ArrayList<>();
-//            for(int j=1;j<6;j++){
-//                Cityinfo cityinfo = new Cityinfo();
-//                cityinfo.setId("code"+j+"");
-//                cityinfo.setCity_name("城市" + i + "-" + j);
-//                cityinfos.add(cityinfo);
-//            }
-//            city_map.put("code"+i+"",cityinfos);
-//        }
         bank_list = citycodeUtil.getBankList();
 
         provincePicker.setData(citycodeUtil.getProvince(province_list));
@@ -267,7 +250,7 @@ public class RegisterBankActivity extends AppCompatActivity {
             String cityCode = citycodeUtil.getCityCode(temCityIndex);
             cityCode = SecurityUtils.toHexString(SecurityUtils.encrypt(cityCode,key));
             body.put("city_id",cityCode);
-            String userPhone = FileUtil.getStringValue("userPhone");
+            String userPhone = FileUtil.getStringValue(BusiConstant.USERPHONE);
             userPhone = SecurityUtils.toHexString(SecurityUtils.encrypt(userPhone,key));
             body.put("cust_nm",userPhone);
             body.put("mobile_no",userPhone);

@@ -1,6 +1,7 @@
 package com.github.financing.utils;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.github.financing.bean.Cityinfo;
 

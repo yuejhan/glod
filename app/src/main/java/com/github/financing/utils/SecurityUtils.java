@@ -6,6 +6,7 @@ package com.github.financing.utils;
 
 import android.util.Base64;
 
+import java.net.URLDecoder;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -77,6 +78,20 @@ public class SecurityUtils {
         return keyFactory.generatePublic(x509KeySpec);
     }
 
+    public static String decrypt(String message,String key) throws Exception {
+
+        byte[] bytesrc =convertHexString(message);
+        Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
+        DESKeySpec desKeySpec = new DESKeySpec(key.getBytes("UTF-8"));
+        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+        SecretKey secretKey = keyFactory.generateSecret(desKeySpec);
+        IvParameterSpec iv = new IvParameterSpec(key.getBytes("UTF-8"));
+
+        cipher.init(Cipher.DECRYPT_MODE, secretKey, iv);
+
+        byte[] retByte = cipher.doFinal(bytesrc);
+        return new String(retByte);
+    }
 
     public static byte[] encrypt(String message, String key)
             throws Exception {
@@ -117,18 +132,25 @@ public class SecurityUtils {
         return hexString.toString();
     }
 
+
     public static void main(String[] args) {
-        String key = CommonUtil.joinKey();
+//        String key = CommonUtil.joinKey();
 
         try {
-            System.out.println(toHexString(encrypt("0105",key)));
-            System.out.println(toHexString(encrypt("1000",key)));
-            System.out.println(toHexString(encrypt("牛贝贝",key)));
-            System.out.println(toHexString(encrypt("6217000010088309300",key)));
-            System.out.println(toHexString(encrypt("371525199205141027",key)));
-            System.out.println(toHexString(encrypt("牛贝贝",key)));
-            System.out.println(toHexString(encrypt("15110227181",key)));
-            System.out.println(toHexString(encrypt(CommonUtil.currentTimeFormat(),key)));
+            System.out.println(URLDecoder.decode("rKAonQS46jZOTBAzYyv1XsNzdt8KaLymxqPc+uOf+AH6+93jU9biWRPYnq5Fgt0yMczDbO46PhQttdmUQa/fruwJ7pWt3LrGIMOXWCz/Lqt/Z/ENy1BLpNDGjGsRzz4HPHGszUdEKBxpz+6IwBnA+vgPoUzjLjqiZZ1yuKFzevQ="));
+//);
+//              String decrypt = decrypt("rKAonQS46jZOTBAzYyv1XsNzdt8KaLymxqPc+uOf+AH6+93jU9biWRPYnq5Fgt0yMczDbO46PhQttdmUQa/fruwJ7pWt3LrGIMOXWCz/Lqt/Z/ENy1BLpNDGjGsRzz4HPHGszUdEKBxpz+6IwBnA+vgPoUzjLjqiZZ1yuKFzevQ=", key);
+//            String s = toHexString(encrypt("牛贝贝", key));
+//            System.out.println(s);
+//            System.out.println(decrypt(s,key));
+//            System.out.println(toHexString(encrypt("0105",key)));
+//            System.out.println(toHexString(encrypt("1000",key)));
+//            System.out.println(toHexString(encrypt("牛贝贝",key)));
+//            System.out.println(toHexString(encrypt("6217000010088309300",key)));
+//            System.out.println(toHexString(encrypt("371525199205141027",key)));
+//            System.out.println(toHexString(encrypt("牛贝贝",key)));
+//            System.out.println(toHexString(encrypt("15110227181",key)));
+//            System.out.println(toHexString(encrypt(CommonUtil.currentTimeFormat(),key)));
         } catch (Exception e) {
             e.printStackTrace();
         }

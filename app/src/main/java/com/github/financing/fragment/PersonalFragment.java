@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,6 +25,7 @@ import com.github.financing.ui.MainActivity;
 import com.github.financing.ui.RegisterBankActivity;
 import com.github.financing.ui.SettingActivity;
 import com.github.financing.ui.WebViewActivity;
+import com.github.financing.utils.BusiConstant;
 import com.github.financing.utils.CommonUtil;
 import com.github.financing.utils.Constants;
 import com.github.financing.utils.FileUtil;
@@ -94,7 +96,7 @@ public class PersonalFragment extends BaseFragment {
         }
         llOK = (LinearLayout) view.findViewById(R.id.me_ok);
         tvLogin = (TextView)view.findViewById(R.id.me_login);
-        String userPhone = FileUtil.getStringValue("userPhone");
+        String userPhone = FileUtil.getStringValue(BusiConstant.USERPHONE);
         if(userPhone != null && !"".equals(userPhone)){
             llOK.setVisibility(View.VISIBLE);
             tvLogin.setVisibility(View.GONE);
@@ -130,7 +132,7 @@ public class PersonalFragment extends BaseFragment {
      * 设置按钮的响应事件
      */
     private void settingClick(){
-        String userCheck = FileUtil.getStringValue("userPhone");
+        String userCheck = FileUtil.getStringValue(BusiConstant.USERPHONE);
         if(userCheck != null && !"".equals(userCheck)){
             Intent intent = new Intent();
             Log.e("mainactivity",getActivity().toString());
@@ -152,9 +154,10 @@ public class PersonalFragment extends BaseFragment {
      * 充值按钮响应事件
      */
     private void rechardeClick(){
-        String hasAccount = FileUtil.getStringValue("hasAccount");
+        String hasAccount = FileUtil.getStringValue(BusiConstant.HASACCOUNT);
         if(hasAccount==null || "".equals(hasAccount)){
-            dialog();
+//            dialog();
+            sendRequest();
         }else{
             sendRequest();
         }
@@ -163,23 +166,42 @@ public class PersonalFragment extends BaseFragment {
      * 请求网络方法
      */
     private void sendRequest(){
-        Map<String,String> body = new HashMap<String, String>();
+        String userPhone = FileUtil.getStringValue(BusiConstant.USERPHONE);
+        String token = FileUtil.getStringValue(BusiConstant.TOKEN);
+        if(userPhone == null || "".equals(userPhone)){
+            Toast.makeText(getActivity(),"请重新登录",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        final Map<String,String> body = new HashMap<String, String>();
+        body.put("cust_no",userPhone);
+        body.put("mchnt_txn_ssn",CommonUtil.currentTimeFormat());
+        body.put("amt","");
+        body.put("location","");
+        body.put("token",token);
         DataRequester
                 .withHttp(getActivity())
-                .setUrl(Constants.APP_BASE_URL+"/")
+                .setUrl(Constants.APP_BASE_URL+"/Account/PayData")
                 .setMethod(DataRequester.Method.POST)
                 .setBody(body)
                 .setStringResponseListener(new DataRequester.StringResponseListener() {
                     @Override
                     public void onResponse(String response) {
                         ObjectMapper objectMapper = new ObjectMapper();
-                        Map map = new HashMap();
                         try {
-                            map = objectMapper.readValue(response.getBytes(), Map.class);
+                            Map map = objectMapper.readValue(response.getBytes(), Map.class);
+                            HashMap<String, String> params = new HashMap<>();
+                            if(map != null && "0000".equals(map.get("code"))){
+                                body.put("signature",map.get("message").toString());
+                                body.put("mchnt_cd",BusiConstant.MCHNT_CD);
+                                body.remove("token");
+                                goteWebView(Constants.FUYOU_BASE_URL,body);
+                            }else{
+                                Toast.makeText(getActivity(),"服务器异常",Toast.LENGTH_SHORT).show();
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        goteWebView(Constants.FUYOU_BASE_URL,map);
+
                     }
                 })
                 .setResponseErrorListener(new DataRequester.ResponseErrorListener() {
@@ -234,7 +256,7 @@ public class PersonalFragment extends BaseFragment {
     }
 
     private void startCommonRecycle(String title){
-        String userCheck = FileUtil.getStringValue("userPhone");
+        String userCheck = FileUtil.getStringValue(BusiConstant.USERPHONE);
         if(userCheck != null && !"".equals(userCheck)) {
             Intent intent = new Intent();
             intent.putExtra("title",title);
